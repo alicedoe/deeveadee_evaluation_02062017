@@ -21,8 +21,10 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
         $this->load->model('Societe_model');
+        $this->load->model('Dvd_model');
         $this->load->helper('url');
         $data['societes'] = $this->Societe_model->getSocietes();
+        $data['lastDvd'] = $this->Dvd_model->getLastDvd();
         $this->load->view('welcome_message', $data);
 	}
 }
