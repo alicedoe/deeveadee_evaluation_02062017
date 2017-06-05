@@ -84,7 +84,9 @@ function crud_update(db,id) {
     $.ajax({
         url: '/admin/crud_update',
         type: 'POST',
-        data: { new_name: data },
+        contentType: 'application/json',
+        dataType: 'json',
+        data: data,
         success: function (data) {
             // crud_display(data);
             console.log(data);
