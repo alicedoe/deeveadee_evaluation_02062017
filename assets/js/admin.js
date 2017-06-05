@@ -78,17 +78,18 @@ function crud_update(db,id) {
     var data=[];
     $(nligne).each(function(index) {
         var className = $(this).attr('class').split("_");
-        var column = className[2];
-        data[column] = $(this).text();
+        var myObj = {
+            "name" : className[2],    //your artist variable
+            "value" : $(this).text()   //your title variable
+        };
+        data.push(myObj);
     });
     $.ajax({
         url: '/admin/crud_update',
         type: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: data,
+        data: {data: data, db: db},
         success: function (data) {
-            // crud_display(data);
+            crud_display(data);
             console.log(data);
         },
         error: function (data) {
