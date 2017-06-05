@@ -1,40 +1,3 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <title>Bienvenue chez DVD Store</title>
-</head>
-<script type="text/javascript" src="<?php echo base_url("assets/js/jquery-3.2.1.min.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap.js"); ?>"></script>
-<link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap.css"); ?>" />
-<style>
-    /*    societes */
-    .glyphicon-lg
-    {
-        font-size:4em
-    }
-    .info-block
-    {
-        border-right:5px solid #E6E6E6;margin-bottom:25px
-    }
-    .info-block .square-box
-    {
-        width:100px;min-height:110px;margin-right:22px;text-align:center!important;background-color:#676767;padding:20px 0
-    }
-    .info-block.block-info
-    {
-        border-color:#20819e
-    }
-    .info-block.block-info .square-box
-    {
-        background-color:#20819e;color:#FFF
-    }
-</style>
-<body>
-
 <div id="body">
     <div class="container">
         <div class="jumbotron">
@@ -79,8 +42,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php } ?>
         </div>
     </div>
-    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
-</div>
-</body>
-</html>

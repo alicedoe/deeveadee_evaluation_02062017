@@ -20,11 +20,14 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-        $this->load->model('Societe_model');
-        $this->load->model('Dvd_model');
+        $this->load->model('Crud_model');
         $this->load->helper('url');
-        $data['societes'] = $this->Societe_model->getSocietes();
-        $data['lastDvd'] = $this->Dvd_model->getLastDvd();
-        $this->load->view('welcome_message', $data);
+        $societes = new Crud_model();
+        $societes->setOptions('societes', 'numS');
+        $data['societes'] = $societes->get();
+        $dvd = new Crud_model();
+        $dvd->setOptions('dvd', 'numD');
+        $data['lastDvd'] = $dvd->getJoin(6, "numD", "dvd");
+        $this->load->template('welcome_message', $data);
 	}
 }
