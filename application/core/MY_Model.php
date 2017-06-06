@@ -209,11 +209,6 @@ class MY_Model extends CI_Model {
             $this->db->select($fields)->from($this->_table)->where($where);
             $query = $this->db->get();
         }
-        else if($join != null)
-        {
-            $this->db->select($fields)->from($this->_table)->where($where);
-            $query = $this->db->get();
-        }
         else
         {
             $this->db->select($fields)->from($this->_table);

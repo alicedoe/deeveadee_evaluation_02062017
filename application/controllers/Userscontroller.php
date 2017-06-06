@@ -6,13 +6,8 @@ class Userscontroller extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Crud_model');
+        $this->load->library('form_validation');
         $this->load->helper('url_helper');
-    }
-
-    public function index()
-    {
-        $this->load->templateAdmin('admin');
-
     }
 
     /*
@@ -21,7 +16,10 @@ class Userscontroller extends CI_Controller {
     public function account(){
         $data = array();
         if($this->session->userdata('isUserLoggedIn')){
-            $data['user'] = $this->user->getRows(array('id'=>$this->session->userdata('userId')));
+            $client = new CRUD_model();
+            $client->setOptions('clients', 'numC');
+            $data['user'] = $client->get(array('numC'=>$this->session->userdata('numC')));
+            $data['user'] = $data['user'][0];
             //load the view
             $this->load->view('users/account', $data);
         }else{
@@ -43,19 +41,20 @@ class Userscontroller extends CI_Controller {
             $this->session->unset_userdata('error_msg');
         }
         if($this->input->post('loginSubmit')){
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-            $this->form_validation->set_rules('password', 'password', 'required');
+            $this->form_validation->set_rules('emailC', 'Email', 'required|valid_email');
+            $this->form_validation->set_rules('motdepasseC', 'password', 'required');
             if ($this->form_validation->run() == true) {
-                $con['returnType'] = 'single';
-                $con['conditions'] = array(
-                    'email'=>$this->input->post('email'),
-                    'password' => md5($this->input->post('password')),
-                    'status' => '1'
+                $con = array(
+                    'emailC'=>$this->input->post('emailC'),
+                    'motdepasseC' => $this->input->post('motdepasseC')
                 );
-                $checkLogin = $this->user->getRows($con);
+                $client = new CRUD_model();
+                $client->setOptions('clients', 'numC');
+                $checkLogin = $client->get($con);
+                $checkLogin = $checkLogin[0];
                 if($checkLogin){
                     $this->session->set_userdata('isUserLoggedIn',TRUE);
-                    $this->session->set_userdata('userId',$checkLogin['id']);
+                    $this->session->set_userdata('numC',$checkLogin['numC']);
                     redirect('users/account/');
                 }else{
                     $data['error_msg'] = 'Wrong email or password, please try again.';
@@ -63,7 +62,7 @@ class Userscontroller extends CI_Controller {
             }
         }
         //load the view
-        $this->load->view('users/login', $data);
+        $this->load->template('users/login', $data);
     }
 
     /*

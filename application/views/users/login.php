@@ -9,12 +9,12 @@
     ?>
     <form action="" method="post">
         <div class="form-group has-feedback">
-            <input type="email" class="form-control" name="email" placeholder="Email" required="" value="">
-            <?php echo form_error('email','<span class="help-block">','</span>'); ?>
+            <input type="email" class="form-control" name="emailC" placeholder="Email" required="" value="">
+            <?php echo form_error('emailC','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" required="">
-            <?php echo form_error('password','<span class="help-block">','</span>'); ?>
+            <input type="password" class="form-control" name="motdepasseC" placeholder="Password" required="">
+            <?php echo form_error('motdepasseC','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">
             <input type="submit" name="loginSubmit" class="btn-primary" value="Submit"/>
