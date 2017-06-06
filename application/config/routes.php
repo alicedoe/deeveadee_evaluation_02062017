@@ -57,5 +57,5 @@ $route['admin'] = 'Admincontroller';
 $route['admin/crud_delete'] = 'Admincontroller/crud_delete';
 $route['admin/crud_update'] = 'Admincontroller/crud_update';
 $route['admin/test'] = 'Admincontroller/test';
-$route['users'] = 'Userscontroller';
+$route['users'] = 'Userscontroller/login';
 $route['users/registration'] = 'Userscontroller/registration';

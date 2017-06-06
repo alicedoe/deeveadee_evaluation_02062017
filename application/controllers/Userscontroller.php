@@ -1,11 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Users extends CI_Controller {
+class Userscontroller extends CI_Controller {
 
-    function __construct() {
+    public function __construct()
+    {
         parent::__construct();
-        $this->load->library('form_validation');
         $this->load->model('Crud_model');
+        $this->load->helper('url_helper');
+    }
+
+    public function index()
+    {
+        $this->load->templateAdmin('admin');
+
     }
 
     /*
