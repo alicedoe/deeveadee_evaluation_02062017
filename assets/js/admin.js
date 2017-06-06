@@ -10,13 +10,29 @@ $( document ).ready(function() {
 function crud_display(id) {
     var db = id;
     $.ajax({
-        url: '/admin/crud',
+        url: '/Admincontroller/crud',
         type: 'POST',
         data: {"db": db},
         success: function (data) {
+            switch(db) {
+                case "dvd":
+                    resultsql = data.resultsql;
+                    genres = data.genres;
+                    break;
+                case "emprunt":
+                    resultsql = data.resultsql;
+                    break;
+                case "notes":
+                    resultsql = data.resultsql;
+                    break;
+                case "remarques":
+                    resultsql = data.resultsql;
+                    break;
+                default : resultsql = data;
+            }
             $('#crud').empty();
 
-            var mydata = eval(data);
+            var mydata = eval(resultsql);
             var table = $.makeTable(mydata, db);
             $(table).appendTo("#crud");
             $('.cellule').each(function(){
@@ -85,7 +101,7 @@ function crud_update(db,id) {
         data.push(myObj);
     });
     $.ajax({
-        url: '/admin/crud_update',
+        url: '/Admincontroller/crud_update',
         type: 'POST',
         data: {data: data, db: db},
         success: function (data) {
@@ -100,7 +116,7 @@ function crud_update(db,id) {
 
 function crud_delete(db,id) {
     $.ajax({
-        url: '/admin/crud_delete',
+        url: '/Admincontroller/crud_delete',
         type: 'POST',
         data : {"db": db, "id": id},
         success: function (data) {

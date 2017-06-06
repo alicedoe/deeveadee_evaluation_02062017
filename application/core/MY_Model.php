@@ -163,6 +163,7 @@ class MY_Model extends CI_Model {
                     $this->db->join('genres', 'genres.numG = dvd.genreD');
                     $this->db->join('societes', 'societes.numS = dvd.societeD');
                     $this->db->join('acteur', 'acteur.numA = dvd.acteurD');
+                    $this->db->select('numD, titreD, auteurD, nomA, anneeD, dateAchatD, nombreD, roleD, nomG, nomS, consultationsD');
                     break;
                 case "emprunt":
                     $this->db->join('dvd', 'dvd.numD = emprunt.dvdE');
