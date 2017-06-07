@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="col-md-4">
-                <button id="societes" class="crudbutton btn btn-default btn-lg btn-block btn-huge">CRUD Sociétés</button>
+                <button id="societe" class="crudbutton btn btn-default btn-lg btn-block btn-huge">CRUD Société</button>
             </div>
             <div class="col-md-4">
                 <button id="acteur" class="crudbutton btn btn-default btn-lg btn-block btn-huge">CRUD Acteurs</button>
@@ -29,7 +29,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <button id="genres" class="crudbutton btn btn-default btn-lg btn-block btn-huge">CRUD genres</button>
+                <button id="genre" class="crudbutton btn btn-default btn-lg btn-block btn-huge">CRUD genre</button>
             </div>
             <div class="col-md-4">
                 <button id="notes" class="crudbutton btn btn-default btn-lg btn-block btn-huge">CRUD Notes</button>

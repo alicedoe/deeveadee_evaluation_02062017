@@ -12,7 +12,7 @@ class Genre_model extends CI_Model {
 
     public function getGenreName($id)
     {
-        $query = $this->db->get('genres')->where('genres.numG = $id');
+        $query = $this->db->get('genre')->where('genre.numG = $id');
         return $query->result_array();
     }
 

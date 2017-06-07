@@ -152,7 +152,7 @@ class MY_Model extends CI_Model {
         }
     }
 
-    public function getJoin($limit = null, $order_by = null, $join = null, $join1 = null, $join2 = null)
+    public function getJoin($limit = null, $order_by = null, $join = null, $fields="*")
     {
         if ($order_by != null) {
             $this->db->order_by($order_by);
@@ -160,10 +160,9 @@ class MY_Model extends CI_Model {
         if ($join != null) {
             switch ($join) {
                 case "dvd":
-                    $this->db->join('genres', 'genres.numG = dvd.genreD');
-                    $this->db->join('societes', 'societes.numS = dvd.societeD');
-                    $this->db->join('acteur', 'acteur.numA = dvd.acteurD');
-                    $this->db->select('numD, titreD, auteurD, nomA, anneeD, dateAchatD, nombreD, roleD, nomG, nomS, consultationsD');
+                    $this->db->join('genre', 'genre.numG = dvd.genre_NumG');
+                    $this->db->join('societe', 'societe.numS = dvd.societe_numS');
+                    $this->db->select($fields);
                     break;
                 case "emprunt":
                     $this->db->join('dvd', 'dvd.numD = emprunt.dvdE');
@@ -183,6 +182,36 @@ class MY_Model extends CI_Model {
         } else {
             $this->db->from($this->_table);
         $query = $this->db->get(); }
+
+        if ($this->_fetch_mode == 'array') {
+            return $query->result_array();
+        } else {
+            return $query->result();
+        }
+    }
+
+    public function getByJoin($id, $join = null, $fields="*")
+    {
+        if ($join != null) {
+            switch ($join) {
+                case "dvd":
+                    $this->db->join('genre', 'genre.numG = dvd.genre_NumG');
+                    $this->db->join('societe', 'societe.numS = dvd.societe_numS');
+                    $this->db->select($fields);
+                    break;
+                case "emprunt":
+                    $this->db->join('dvd', 'dvd.numD = emprunt.dvdE');
+                    $this->db->join('clients', 'clients.numC = emprunt.clientE');
+                    break;
+                case "notes":
+                    $this->db->join('dvd', 'dvd.numD = notes.dvdN');
+                    break;
+                case "remarques":
+                    $this->db->join('dvd', 'dvd.numD = remarques.dvdR');
+                    break;
+            }
+        }
+        $query = $this->db->get_where($this->_table, array($this->_primary_key => $id));
 
         if ($this->_fetch_mode == 'array') {
             return $query->result_array();

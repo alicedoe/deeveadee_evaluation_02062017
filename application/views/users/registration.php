@@ -2,46 +2,28 @@
     <h2>User Registration</h2>
     <form action="" method="post">
         <div class="form-group">
-            <input type="text" class="form-control" name="name" placeholder="Name" required="" value="<?php echo !empty($user['name'])?$user['name']:''; ?>">
-            <?php echo form_error('name','<span class="help-block">','</span>'); ?>
+            <input type="text" class="form-control" name="nomC" placeholder="Nom" required="" value="<?php echo !empty($user['nomC'])?$user['nomC']:''; ?>">
+            <?php echo form_error('nomC','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="Email" required="" value="<?php echo !empty($user['email'])?$user['email']:''; ?>">
-            <?php echo form_error('email','<span class="help-block">','</span>'); ?>
+            <input type="text" class="form-control" name="prenomC" placeholder="Prénom" required="" value="<?php echo !empty($user['prenomC'])?$user['prenomC']:''; ?>">
+            <?php echo form_error('prenomC','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="phone" placeholder="Phone" value="<?php echo !empty($user['phone'])?$user['phone']:''; ?>">
+            <input type="text" class="form-control" name="adresseC" placeholder="Adresse" required="" value="<?php echo !empty($user['adresseC'])?$user['adresseC']:''; ?>">
+            <?php echo form_error('adresseC','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" required="">
-            <?php echo form_error('password','<span class="help-block">','</span>'); ?>
+            <input type="email" class="form-control" name="emailC" placeholder="Email" required="" value="<?php echo !empty($user['emailC'])?$user['emailC']:''; ?>">
+            <?php echo form_error('emailC','<span class="help-block">','</span>'); ?>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" name="conf_password" placeholder="Confirm password" required="">
+            <input type="password" class="form-control" name="motdepasseC" placeholder="Mot de passe" required="">
+            <?php echo form_error('motdepasseC','<span class="help-block">','</span>'); ?>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="conf_password" placeholder="Confirmation mot de passe" required="">
             <?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
-        </div>
-        <div class="form-group">
-            <?php
-            if(!empty($user['gender']) && $user['gender'] == 'Female'){
-                $fcheck = 'checked="checked"';
-                $mcheck = '';
-            }else{
-                $mcheck = 'checked="checked"';
-                $fcheck = '';
-            }
-            ?>
-            <div class="radio">
-                <label>
-                    <input type="radio" name="gender" value="Male" <?php echo $mcheck; ?>>
-                    Male
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                    <input type="radio" name="gender" value="Female" <?php echo $fcheck; ?>>
-                    Female
-                </label>
-            </div>
         </div>
         <div class="form-group">
             <input type="submit" name="regisSubmit" class="btn-primary" value="Submit"/>

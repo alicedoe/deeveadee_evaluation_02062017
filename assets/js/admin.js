@@ -1,5 +1,3 @@
-
-
 $( document ).ready(function() {
     $('.crudbutton').click(function() {
         var db = $(this).attr('id');
@@ -60,7 +58,7 @@ function crud_display(id) {
     });
 }
 
-$.makeTable = function (mydata,db) {
+function makeTable(mydata,db) {
     var table = $('<table class="col-md-12 text-center" border=1>');
     var tblHeader = "<tr>";
     for (var k in mydata[0]) tblHeader += "<th>" + k + "</th>";

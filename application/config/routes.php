@@ -53,10 +53,13 @@ $route['default_controller'] = 'Welcomecontroller';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['catalogue'] = 'Welcomecontroller/catalogue';
+$route['catalogue/detail'] = 'Welcomecontroller/catalogue/detaildvd';
 $route['admin'] = 'Admincontroller';
 $route['admin/crud_delete'] = 'Admincontroller/crud_delete';
 $route['admin/crud_update'] = 'Admincontroller/crud_update';
 $route['admin/test'] = 'Admincontroller/test';
 $route['users'] = 'Userscontroller/login';
+$route['users/logout'] = 'Userscontroller/logout';
 $route['users/account'] = 'Userscontroller/account';
 $route['users/registration'] = 'Userscontroller/registration';

@@ -21,9 +21,10 @@ class Userscontroller extends CI_Controller {
             $data['user'] = $client->get(array('numC'=>$this->session->userdata('numC')));
             $data['user'] = $data['user'][0];
             //load the view
-            $this->load->view('users/account', $data);
+            $data['view'] = "user";
+            $this->load->template('users/account', $data);
         }else{
-            redirect('users/login');
+            redirect('users');
         }
     }
 
@@ -40,7 +41,7 @@ class Userscontroller extends CI_Controller {
             $data['error_msg'] = $this->session->userdata('error_msg');
             $this->session->unset_userdata('error_msg');
         }
-        if($this->input->post('loginSubmit')){
+        if($this->input->post('emailC') && $this->input->post('motdepasseC')){
             $this->form_validation->set_rules('emailC', 'Email', 'required|valid_email');
             $this->form_validation->set_rules('motdepasseC', 'password', 'required');
             if ($this->form_validation->run() == true) {
@@ -49,20 +50,25 @@ class Userscontroller extends CI_Controller {
                     'motdepasseC' => $this->input->post('motdepasseC')
                 );
                 $client = new CRUD_model();
-                $client->setOptions('clients', 'numC');
+                echo $client->setOptions('clients', 'numC');
                 $checkLogin = $client->get($con);
-                $checkLogin = $checkLogin[0];
                 if($checkLogin){
                     $this->session->set_userdata('isUserLoggedIn',TRUE);
-                    $this->session->set_userdata('numC',$checkLogin['numC']);
-                    redirect('users/account/');
+                    $this->session->set_userdata('prenom',$checkLogin[0]['prenomC']);
+                    $this->session->set_userdata('numC',$checkLogin[0]['numC']);
+                    $data['isUserLoggedIn'] = true;
+                    $data['prenom'] = $checkLogin[0]['prenomC'];
                 }else{
                     $data['error_msg'] = 'Wrong email or password, please try again.';
                 }
             }
         }
+
+
         //load the view
-        $this->load->template('users/login', $data);
+        $this->output->set_content_type('application/json');
+        $this->output->set_output(json_encode($data));
+//        $this->load->template('users/login', $data);
     }
 
     /*
@@ -93,7 +99,7 @@ class Userscontroller extends CI_Controller {
                 $insert = $client->save($userData);
                 if($insert){
                     $this->session->set_userdata('success_msg', 'Your registration.php was successfully. Please login to your account.');
-                    redirect('users/login');
+                    redirect('users');
                 }else{
                     $data['error_msg'] = 'Some problems occured, please try again.';
                 }
@@ -101,6 +107,7 @@ class Userscontroller extends CI_Controller {
         }
         $data['user'] = $userData;
         //load the view
+        $data['view'] = "user";
         $this->load->template('users/registration.php', $data);
     }
 
@@ -111,17 +118,18 @@ class Userscontroller extends CI_Controller {
         $this->session->unset_userdata('isUserLoggedIn');
         $this->session->unset_userdata('userId');
         $this->session->sess_destroy();
-        redirect('users/login/');
+        $this->output->set_output("logout");
     }
 
     /*
      * Existing email check during validation
      */
     public function email_check($str){
-        $con['returnType'] = 'count';
-        $con['conditions'] = array('email'=>$str);
-        $checkEmail = $this->user->getRows($con);
-        if($checkEmail > 0){
+        $client = new CRUD_model();
+        $client->setOptions('clients', 'numC');
+        $con = array('emailC'=>$str);
+        $checkEmail = $client->get($con);
+        if(count($checkEmail) > 0){
             $this->form_validation->set_message('email_check', 'The given email already exists.');
             return FALSE;
         } else {

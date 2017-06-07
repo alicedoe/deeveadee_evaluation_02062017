@@ -3,7 +3,10 @@
         <div class="jumbotron">
             <h1>Bienvenue chez DVD Store</h1>
             <p>Quelle que soit la dualité de la situation contemporaine, on ne peut se passer de prendre en considération chacune des voies de bon sens. Avec la conjoncture contemporaine, il serait bon d'imaginer toutes les voies s'offrant à nous. Quelle que soit la situation qui est la nôtre, on ne peut se passer de prendre en considération la totalité des problématiques déjà en notre possession.</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Voir notre catalogue</a></p>
+            <p><a class="btn btn-primary btn-lg" href="catalogue" role="button">Voir notre catalogue</a></p>
+        </div>
+        <div class="page-header">
+            <h1>Mon compte :</h1>
         </div>
         <div class="page-header">
             <h1>Nos 6 dernières nouveautées :</h1>

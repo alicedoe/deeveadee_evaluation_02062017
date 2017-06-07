@@ -11,15 +11,15 @@ class Admincontroller extends CI_Controller {
 
     public function index()
     {
-        $this->load->templateAdmin('admin');
+        $this->load->templateAdmin('admin_view');
 
     }
 
     public function getCrudModel ($db,$verb,$id=null,$data=null) {
         switch ($db) {
-            case "societes":
+            case "societe":
                 $societes = new CRUD_model();
-                $societes->setOptions('societes', 'numS');
+                $societes->setOptions('societe', 'numS');
                 if ($verb == "get") { $data["resultsql"] = $societes->get(); return $data["resultsql"];}
                 elseif ($verb == "delete") { $societes->delete($id); }
                 elseif ($verb == "update") { $societes->insertUpdate($id, null, $data); }
@@ -41,7 +41,7 @@ class Admincontroller extends CI_Controller {
                 $dvd->setOptions('dvd', 'numD');
                 if ($verb == "get") { $data["resultsql"] = $dvd->getJoin(10, "numD", "dvd");
                     $genres = new CRUD_model();
-                    $genres->setOptions('genres', 'numG');
+                    $genres->setOptions('genre', 'numG');
                     $data["genres"] = $genres->get();
                 return $data;}
                 elseif ($verb == "delete") { $dvd->delete($id); }
@@ -58,9 +58,9 @@ class Admincontroller extends CI_Controller {
                 if ($verb == "get") { $data["resultsql"] = $emprunts->getJoin(null, "numE", "emprunt"); return $data["resultsql"];}
                 elseif ($verb == "delete") { $data[$db] = $emprunts->delete($id); }
                 break;
-            case "genres":
+            case "genre":
                 $genres = new CRUD_model();
-                $genres->setOptions('genres', 'numG');
+                $genres->setOptions('genre', 'numG');
                 if ($verb == "get") { $data["resultsql"] = $genres->get(); return $data["resultsql"];}
                 elseif ($verb == "delete") { $data[$db] = $genres->delete($id); }
                 break;
@@ -108,7 +108,7 @@ class Admincontroller extends CI_Controller {
 
     public function test()
     {
-        $db = "societes";
+        $db = "societe";
         $data = $this->getCrudModel($db,"get");
         var_dump($data);
 
