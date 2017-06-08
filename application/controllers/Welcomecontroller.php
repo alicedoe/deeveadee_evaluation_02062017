@@ -94,7 +94,8 @@ class Welcomecontroller extends CI_Controller {
             $data['moyenne'] = (array_sum(array_map(function ($arr) {
                     return $arr['noteN'];
                 }, $total))) / count($total);
-            $data['anote'] = $notes->get_total(array('dvdN' => $_POST['id'], 'clientN' => $_SESSION['numC']));
+            if(isset($_SESSION['numC'])) {
+            $data['anote'] = $notes->get_total(array('dvdN' => $_POST['id'], 'clientN' => $_SESSION['numC'])); }
             $consult = $data['dvd'][0]['consultationsD'] + 1;
             $dvds->update($_POST['id'], null, ['consultationsD' => $consult]);
         }
@@ -109,8 +110,11 @@ class Welcomecontroller extends CI_Controller {
             'table_open'            => '<table border="0" class="col-md-12">'
         );
         $this->table->set_template($template);
-        $data['rem'] = $this->table->generate($listeremarques);
         $data['tab'] = $this->table->generate($data['dvd']);
+
+        $this->table->set_heading('Id remarque', 'Id Dvd', 'Remarque');
+        $data['rem'] = $this->table->generate($listeremarques);
+
         $this->output->set_content_type('application/json');
         $this->output->set_output(json_encode($data));
     }

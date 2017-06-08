@@ -43,10 +43,12 @@ function detailDvd(id) {
                 }
             }
             $(data['rem']).appendTo('#remarques');
+            if ($('#remarquesaisi').length === 0) {
             if ( typeof(data['aremarque']) === 'undefined' ||data['aremarque'] === 0) {
-                    $('#saisiremarque').append('<input type="text" id="remarquesaisi"  name="remarque"><button class="btn btn-primary">Envoyer</button>');
-                document.getElementById ("remarquesaisi").addEventListener("click", remarque(id), false);
+                $('#saisiremarque').append('<input type="text" id="remarquesaisi"  name="remarque"><button id="btnremarque" class="btn btn-primary">Envoyer</button>');
+                $('#btnremarque').click(function(){ addremarque(id)});
             }
+        }
         },
         error: function (data) {
             console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());
@@ -70,16 +72,18 @@ function note(note,id) {
     });
 }
 
-function remarque(id) {
-    console.log("toto");
+function addremarque(id) {
     remarque = $('#remarquesaisi').val();
     $.ajax({
         url: '/Welcomecontroller/remarque',
         type: 'POST',
         data: {"remarque": remarque,"dvd": id},
         success: function (data) {
-            $('#remarques').empty();
+            $('#remarques, #saisiremarque').empty();
             $(data['rem']).appendTo('#remarques');
+            $('#saisiremarque').append('<input type="text" id="remarquesaisi"  name="remarque"><button id="btnremarque" class="btn btn-primary">Envoyer</button>');
+            $('#btnremarque').click(function(){ addremarque(id)});
+            console.log(id);
         },
         error: function (data) {
             console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());

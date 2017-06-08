@@ -22,9 +22,11 @@
         </div>
         <div id="moyenne">
         </div>
-        <div id="note"></div>
+        <?php if(isset($_SESSION['numC'])) {
+            echo "<div id='note'></div>"; } ?>
         <div id="remarques"></div>
-        <div id="saisiremarque"></div>
+        <?php if(isset($_SESSION['numC'])) {
+        echo "<div id='saisiremarque'></div>"; } ?>
     </div>
 </div>
 

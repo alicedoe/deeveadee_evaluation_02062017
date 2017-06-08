@@ -22,8 +22,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <a class="btn btn-primary" href="users/account" role="button">Voir mon compte</a><?php
         } else {
             echo "
-  <input type='text' name='email' placeholder='Email'><br>
-  <input type='text' name='motdepasse' placeholder='Mot de passe'><br>
+  <input id='email' type='text' name='email' placeholder='Email'><br>
+  <input id='mdp' type='text' name='motdepasse' placeholder='Mot de passe'><br>
   <button id='login' class='btn btn-primary'>Se connecter</button><br>
   <a class='btn btn-primary' href='users/registration' role='button'>Créer un compte</a>";
         }

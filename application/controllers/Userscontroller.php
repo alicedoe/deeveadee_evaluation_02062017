@@ -10,6 +10,15 @@ class Userscontroller extends CI_Controller {
         $this->load->helper('url_helper');
     }
 
+    public function updateabo(){
+        $clients = new CRUD_model();
+        $clients->setOptions('clients', 'numC');
+        $clients->update($_POST['iduser'],null,array('abonnement' => $_POST['idabo']));
+        $data['client'] = $clients->get($_POST['iduser']);
+        $this->output->set_content_type('application/json');
+        $this->output->set_output(json_encode($data));
+    }
+
     /*
      * User account information
      */
@@ -18,7 +27,7 @@ class Userscontroller extends CI_Controller {
         if($this->session->userdata('isUserLoggedIn')){
             $client = new CRUD_model();
             $client->setOptions('clients', 'numC');
-            $data['user'] = $client->get(array('numC'=>$this->session->userdata('numC')));
+            $data['user'] = $client->getByJoin($this->session->userdata('numC'),"client");
 
             $dvdEmprunt = new CRUD_model();
             $dvdEmprunt->setOptions('emprunt', 'numE');
@@ -33,6 +42,10 @@ class Userscontroller extends CI_Controller {
             $data['tab'] = $this->table->generate($data['emprunts']);
 
             $data['user'] = $data['user'][0];
+
+            $abonnements = new CRUD_model();
+            $abonnements->setOptions('abonnement', 'numAbo');
+            $data['abonnements'] = $abonnements->get();
             //load the view
             $data['view'] = "user";
             $this->load->template('users/account', $data);
@@ -63,8 +76,9 @@ class Userscontroller extends CI_Controller {
                     'motdepasseC' => $this->input->post('motdepasseC')
                 );
                 $client = new CRUD_model();
-                echo $client->setOptions('clients', 'numC');
+                $client->setOptions('clients', 'numC');
                 $checkLogin = $client->get($con);
+                $data['test'] = $con;
                 if($checkLogin){
                     $this->session->set_userdata('isUserLoggedIn',TRUE);
                     $this->session->set_userdata('prenom',$checkLogin[0]['prenomC']);
@@ -131,7 +145,7 @@ class Userscontroller extends CI_Controller {
         $this->session->unset_userdata('isUserLoggedIn');
         $this->session->unset_userdata('userId');
         $this->session->sess_destroy();
-        $this->output->set_output("logout");
+        $this->load->template('Welcome_message');
     }
 
     /*

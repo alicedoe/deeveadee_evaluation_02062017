@@ -192,6 +192,15 @@ class MY_Model extends CI_Model {
                         $this->db->from($this->_table);
                         $query = $this->db->get(); }
                     break;
+                case "user":
+                    $this->db->join('abonnement', 'abonnement.numAbo = clients.abonnement');
+                    if ($limit != null ) {
+                        $this->db->from($this->_table)->limit($limit);
+                        $query = $this->db->get();
+                    } else {
+                        $this->db->from($this->_table);
+                        $query = $this->db->get(); }
+                    break;
             }
         }
 
@@ -220,6 +229,9 @@ class MY_Model extends CI_Model {
                     break;
                 case "remarques":
                     $this->db->join('dvd', 'dvd.numD = remarques.dvdR');
+                    break;
+                case "client":
+                    $this->db->join('abonnement', 'abonnement.numAbo = clients.abonnement');
                     break;
             }
         }

@@ -6,13 +6,16 @@ $( document ).ready(function() {
 
 });
 
+
+
 function login() {
     $.ajax({
         url: '/Userscontroller/login',
         type: 'POST',
-        data: {"emailC": "ayoxenr3@tripadvisor.com","motdepasseC": "dGlcpa6O"},
+        data: {"emailC": $('#email').val(),"motdepasseC": $('#mdp').val()},
         success: function (data) {
             if(data["isUserLoggedIn"]) {
+                console.log(data);
                 prenom = data['prenom'];
                 $('#account').empty().append('Bonjour '+prenom+' !<br><button id="logout" onclick="logout()" class="btn btn-primary">Se deconnecter</button><br><a class="btn btn-primary" href="users/account" role="button">Voir mon compte</a>');
 
@@ -29,7 +32,8 @@ function logout() {
         url: '/Userscontroller/logout',
         success: function (data) {
             $('#account').empty().append("<input type='text' name='email' placeholder='Email'><br><input type='text' name='motdepasse' placeholder='Mot de passe'><br><button id='login' onclick='login()' class='btn btn-primary'>Se connecter</button><br><a class='btn btn-primary' href='users/registration' role='button'>Créer un compte</a>");
-        },
+            location.reload();
+            },
         error: function (data) {
             console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());
         }
