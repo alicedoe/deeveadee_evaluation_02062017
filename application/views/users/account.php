@@ -8,5 +8,6 @@
         <p><b>Adresse: </b><?php echo $user['adresseC']; ?></p>
         <p><b>Abonnement: </b><?php echo $user['abonnement']; ?></p>
     </div>
+    <?php echo $tab; ?>
     <a class="btn btn-primary" href="<?php echo site_url('users/logout') ?>" role="button">Se deconnecter</a>
 </div>

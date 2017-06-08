@@ -17,10 +17,14 @@
                 <?php echo $tab; ?>
             </div>
         </div>
-        <div class="detail">
+        <div id="detail">
 
         </div>
-
+        <div id="moyenne">
+        </div>
+        <div id="note"></div>
+        <div id="remarques"></div>
+        <div id="saisiremarque"></div>
     </div>
 </div>
 

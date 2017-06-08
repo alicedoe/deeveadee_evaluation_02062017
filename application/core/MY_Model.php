@@ -152,7 +152,7 @@ class MY_Model extends CI_Model {
         }
     }
 
-    public function getJoin($limit = null, $order_by = null, $join = null, $fields="*")
+    public function getJoin($limit = null, $order_by = null, $join = null, $fields="*", $id=null)
     {
         if ($order_by != null) {
             $this->db->order_by($order_by);
@@ -163,25 +163,37 @@ class MY_Model extends CI_Model {
                     $this->db->join('genre', 'genre.numG = dvd.genre_NumG');
                     $this->db->join('societe', 'societe.numS = dvd.societe_numS');
                     $this->db->select($fields);
+                    if ($limit != null ) {
+                        $this->db->from($this->_table)->limit($limit);
+                        $query = $this->db->get();
+                    } else {
+                        $this->db->from($this->_table);
+                        $query = $this->db->get(); }
                     break;
                 case "emprunt":
                     $this->db->join('dvd', 'dvd.numD = emprunt.dvdE');
-                    $this->db->join('clients', 'clients.numC = emprunt.clientE');
+                    $query = $this->db->get_where($this->_table, array('clientE'  => $id));
                     break;
                 case "notes":
                     $this->db->join('dvd', 'dvd.numD = notes.dvdN');
+                    if ($limit != null ) {
+                        $this->db->from($this->_table)->limit($limit);
+                        $query = $this->db->get();
+                    } else {
+                        $this->db->from($this->_table);
+                        $query = $this->db->get(); }
                     break;
                 case "remarques":
                     $this->db->join('dvd', 'dvd.numD = remarques.dvdR');
+                    if ($limit != null ) {
+                        $this->db->from($this->_table)->limit($limit);
+                        $query = $this->db->get();
+                    } else {
+                        $this->db->from($this->_table);
+                        $query = $this->db->get(); }
                     break;
             }
         }
-        if ($limit != null ) {
-            $this->db->from($this->_table)->limit($limit);
-            $query = $this->db->get();
-        } else {
-            $this->db->from($this->_table);
-        $query = $this->db->get(); }
 
         if ($this->_fetch_mode == 'array') {
             return $query->result_array();
@@ -212,6 +224,28 @@ class MY_Model extends CI_Model {
             }
         }
         $query = $this->db->get_where($this->_table, array($this->_primary_key => $id));
+
+        if ($this->_fetch_mode == 'array') {
+            return $query->result_array();
+        } else {
+            return $query->result();
+        }
+    }
+
+    public function notes($id) {
+        $this->db->from($this->_table)->where('dvdN', $id);
+        $query = $this->db->get();
+
+        if ($this->_fetch_mode == 'array') {
+            return $query->result_array();
+        } else {
+            return $query->result();
+        }
+    }
+
+    public function remarques($id) {
+        $this->db->from($this->_table)->where('dvdR', $id);
+        $query = $this->db->get();
 
         if ($this->_fetch_mode == 'array') {
             return $query->result_array();

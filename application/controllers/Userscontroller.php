@@ -19,6 +19,19 @@ class Userscontroller extends CI_Controller {
             $client = new CRUD_model();
             $client->setOptions('clients', 'numC');
             $data['user'] = $client->get(array('numC'=>$this->session->userdata('numC')));
+
+            $dvdEmprunt = new CRUD_model();
+            $dvdEmprunt->setOptions('emprunt', 'numE');
+            $data['emprunts'] = $dvdEmprunt->getJoin(null, null, "emprunt", "*", $this->session->userdata('numC'));
+
+            $this->load->library('table');
+            $template = array(
+                'table_open'            => '<table border="0" class="col-md-12">'
+            );
+
+            $this->table->set_template($template);
+            $data['tab'] = $this->table->generate($data['emprunts']);
+
             $data['user'] = $data['user'][0];
             //load the view
             $data['view'] = "user";
