@@ -1,26 +1,134 @@
-.glyphicon-lg
-{
-    font-size:4em
-}
-.info-block
-{
-    border-right:5px solid #E6E6E6;margin-bottom:25px
-}
-.info-block .square-box
-{
-    width:100px;min-height:110px;margin-right:22px;text-align:center!important;background-color:#676767;padding:20px 0
-}
-.info-block.block-info
-{
-    border-color:#20819e
-}
-.info-block.block-info .square-box
-{
-    background-color:#20819e;color:#FFF
+/*.glyphicon-lg*/
+/*{*/
+    /*font-size:4em*/
+/*}*/
+/*.info-block*/
+/*{*/
+    /*border-right:5px solid #E6E6E6;margin-bottom:25px*/
+/*}*/
+/*.info-block .square-box*/
+/*{*/
+    /*width:100px;min-height:110px;margin-right:22px;text-align:center!important;background-color:#676767;padding:20px 0*/
+/*}*/
+/*.info-block.block-info*/
+/*{*/
+    /*border-color:#20819e*/
+/*}*/
+/*.info-block.block-info .square-box*/
+/*{*/
+    /*background-color:#20819e;color:#FFF*/
+/*}*/
+
+/*.btn-huge{*/
+    /*padding-top:20px;*/
+    /*padding-bottom:20px;*/
+    /*margin-bottom: 1em;*/
+/*}*/
+
+@font-face {
+    font-family: 'Comforta';
+
+    src: url('../fonts/Comfortaa-Light.ttf');}
+
+.form-control, .btn-default {
+    border: 1px solid #879528;
 }
 
-.btn-huge{
-    padding-top:20px;
-    padding-bottom:20px;
-    margin-bottom: 1em;
+body,html {
+    font-family: "Comforta";
+}
+
+#header {
+    height: 5em;
+}
+
+.middlehor{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.headerInline {
+    display: inline-block;
+}
+
+#header .imgsearchB img, #header img {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#header .input-group{
+    position: absolute;
+    left: -50%;
+    transform: translate(50%, 50%);
+}
+
+#blocUser span {
+    margin : 1em;
+}
+
+#blocUser .login {
+    margin-top: 2em;
+}
+
+#blocUser button {
+    margin: 1em;
+    display: block;
+    background-color: #879528;
+    border-color: #879528;
+}
+#btnAccount a {
+text-decoration: none;
+}
+
+#btnAccount button {
+    position: relative;
+}
+
+#searchBar .glyphicon { color : #879528; }
+
+#popinLogin {
+    display: none;
+    margin-top: 25vh;
+    width: 70vh;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#popinCreateAccount {
+    display: none;
+    margin-top: 25vh;
+    width: 70vh;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Navbar */
+
+.navbar {
+    font-size: 2.5em;
+
+    margin-top: 1.5em;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #fc5e21;
+}
+
+.navbar div {
+    display: inline-block;
+    text-align: center;
+}
+
+.navbar-default {
+    background-color: white;
+    border-color: #fc5e21;
+}
+
+#menu div:not(:last-child) {
+    border-right: 1px solid #fc5e21;
 }

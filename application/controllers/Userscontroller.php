@@ -59,14 +59,6 @@ class Userscontroller extends CI_Controller {
      */
     public function login(){
         $data = array();
-        if($this->session->userdata('success_msg')){
-            $data['success_msg'] = $this->session->userdata('success_msg');
-            $this->session->unset_userdata('success_msg');
-        }
-        if($this->session->userdata('error_msg')){
-            $data['error_msg'] = $this->session->userdata('error_msg');
-            $this->session->unset_userdata('error_msg');
-        }
         if($this->input->post('emailC') && $this->input->post('motdepasseC')){
             $this->form_validation->set_rules('emailC', 'Email', 'required|valid_email');
             $this->form_validation->set_rules('motdepasseC', 'password', 'required');
@@ -78,7 +70,7 @@ class Userscontroller extends CI_Controller {
                 $client = new CRUD_model();
                 $client->setOptions('clients', 'numC');
                 $checkLogin = $client->get($con);
-                $data['test'] = $con;
+                $data['test'] = $this->input->post('motdepasseC');
                 if($checkLogin){
                     $this->session->set_userdata('isUserLoggedIn',TRUE);
                     $this->session->set_userdata('prenom',$checkLogin[0]['prenomC']);
@@ -86,6 +78,7 @@ class Userscontroller extends CI_Controller {
                     $data['isUserLoggedIn'] = true;
                     $data['prenom'] = $checkLogin[0]['prenomC'];
                 }else{
+                    $data['isUserLoggedIn'] = false;
                     $data['error_msg'] = 'Wrong email or password, please try again.';
                 }
             }
@@ -95,7 +88,6 @@ class Userscontroller extends CI_Controller {
         //load the view
         $this->output->set_content_type('application/json');
         $this->output->set_output(json_encode($data));
-//        $this->load->template('users/login', $data);
     }
 
     /*
@@ -104,13 +96,13 @@ class Userscontroller extends CI_Controller {
     public function registration(){
         $data = array();
         $userData = array();
-        if($this->input->post('regisSubmit')){
+        $test=0;
+        if($this->input->post('nomC')){
             $this->form_validation->set_rules('nomC', 'Nom', 'required');
             $this->form_validation->set_rules('prenomC', 'Prénom', 'required');
             $this->form_validation->set_rules('adresseC', 'Adresse', 'required');
             $this->form_validation->set_rules('emailC', 'Email', 'required|valid_email|callback_email_check');
             $this->form_validation->set_rules('motdepasseC', 'Mot de passe', 'required');
-            $this->form_validation->set_rules('conf_password', 'Confirmation mot de passe', 'required|matches[motdepasseC]');
 
             $userData = array(
                 'nomC' => strip_tags($this->input->post('nomC')),
@@ -121,21 +113,29 @@ class Userscontroller extends CI_Controller {
             );
 
             if($this->form_validation->run() == true){
+                $test = 1;
                 $client = new CRUD_model();
                 $client->setOptions('clients', 'numC');
                 $insert = $client->save($userData);
+                $numc = $client->lastid();
                 if($insert){
-                    $this->session->set_userdata('success_msg', 'Your registration.php was successfully. Please login to your account.');
-                    redirect('users');
+                    $this->session->set_userdata('success_msg', 'Votre compte à bien été créé');
+                    $this->session->set_userdata('isUserLoggedIn',TRUE);
+                    $this->session->set_userdata('prenom',$userData['prenomC']);
+                    $this->session->set_userdata('numC',$numc);
+                    $data['prenom'] = $userData['prenomC'];
+                    $data['isUserCreated'] = true;
                 }else{
-                    $data['error_msg'] = 'Some problems occured, please try again.';
+                    $data['isUserCreated'] = false;
+                    $data['error_msg'] = "Il y a eu un problème à l'enregistrement de votre compte";
                 }
+            } else {
+                $data['isUserCreated'] = false;
+                $data['error_msg'] = "Problème sur le formulaire";
             }
         }
-        $data['user'] = $userData;
-        //load the view
-        $data['view'] = "user";
-        $this->load->template('users/registration.php', $data);
+        $this->output->set_content_type('application/json');
+        $this->output->set_output(json_encode($data));
     }
 
     /*
@@ -145,7 +145,8 @@ class Userscontroller extends CI_Controller {
         $this->session->unset_userdata('isUserLoggedIn');
         $this->session->unset_userdata('userId');
         $this->session->sess_destroy();
-        $this->load->template('Welcome_message');
+        $data = "logout";
+        $this->load->template('welcome_message', $data);
     }
 
     /*

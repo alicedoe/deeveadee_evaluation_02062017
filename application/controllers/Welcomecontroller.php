@@ -7,6 +7,7 @@ class Welcomecontroller extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Crud_model');
+        $this->load->library('form_validation');
         $this->load->helper('url_helper');
     }
 
