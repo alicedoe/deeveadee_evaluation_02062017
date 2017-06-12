@@ -1,7 +1,7 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/catalogue.js"); ?>"></script>
 
         <div class="container">
-            <select id="genre" name="genre">
+            <select id="genre" class="form-control col-lg-6" name="genre">
                 <option value="*" selected="selected">Toutes les catégories</option>
             <?php foreach($genres as $genre):?>
                 <option value="<?php echo $genre['numG']; ?>"><?php echo $genre['nomG']; ?></option>
