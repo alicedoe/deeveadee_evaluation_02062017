@@ -1,70 +1,75 @@
-###################
-What is CodeIgniter ?
-###################
+##################################
+Projet interne - Beweb - Deeveadee
+##################################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+pré-requis: codeigniter 3.1.4, mysql workbench,phpmyadmin, jquery/ajax,
+bootstrap-sass.3.3.7 ( l’utilisation de plugin est proscrite).
 
-*******************
-Release Information
-*******************
+********
+Enoncé :
+********
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+On désire réaliser une base de données pour la gestion d’une bibliothèque de DVDs.
+Chaque société de location de DVD a un nom et une adresse (nom de rue et ville),
+ainsi qu’un nom de directeur. Plusieurs sociétés de location peuvent porter le même
+nom.
+Tout DVD possède un titre, un auteur, une année de sortie, un numéro qui permet
+de l'identifier, une catégorie (ex : action, aventure); on enregistre également sa date
+d'acquisition, le nombre d’exemplaires achetés et la société qui l’a acquis.
+Pour un acteur on mémorise son nom, son prénom, son âge et son sexe. Pour
+chaque DVD et pour chaque acteur principal du film concerné, on mémorise le rôle
+tenu dans le film.
+Un DVD est emprunté par un client (numéro du client, nom, prénom,adresse) à une
+date donnée et pour une durée déterminée (nombre de jours). Un même client ne
+peut emprunter un même DVD plus d’une fois par jour.
 
-**************************
-Changelog and New Features
-**************************
+**********************************
+Cahier des charges : ​ Deeveadee.my
+**********************************
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
-
-*******************
-Server Requirements
-*******************
-
-PHP version 5.6 or newer is recommended.
-
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
-
-************
-Installation
-************
-
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
-
-*******
-License
-*******
-
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
-
-*********
-Resources
-*********
-
--  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community IRC <https://webchat.freenode.net/?channels=%23codeigniter>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
-
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+Le client souhaite mettre en place un système de gestion de location de dvd
+commun à toutes ses boutiques (il en possède 4).
+L’ensemble des dvd seront centralisés sur une seule table, cependant le stock et les
+références ne sont pas commun aux 4 boutiques.
+Partie visiteur / Client
+Une Landing page présentant les activités de sa société.
+Le design de la page devra être épuré,de style résolument moderne et en respectant
+la palette de couleur choisie par le client:Color Hex RGB
+#97ecdb (151,236,219)
+#fc5e21 (252,94,33)
+#c90b0b (201,11,11)
+#70146a (112,20,106)
+#879528 (135,149,40)
+Polices souhaitées : Comfortaa, Samarkan (dossier de ressources G.drive).
+La page devra être aussi adaptée aux mobiles (responsive).
+Mise en avant des nouveautés, des films et des genres le plus consultés.
+Proposer des abonnements.
+Possibilitée de partage sur les réseaux sociaux.
+Mettre en avant ses boutiques via un une googlemaps.
+Permettre au client :
+voir la liste des films avec ou sans filtre thématique
+de créer un compte,
+de gérer son abonnement,
+de voir son historique de location,
+de réserver un film,
+de laisser un commentaire sur un film,
+de noter un film,
+de recevoir des offres promotionnelles en fonction de ses goûts.
+Partie gérant/employé
+fonctionnalités souhaités : (employés, gérant)
+voir/ajouter/éditer/supprimer un film.
+voir/ajouter/éditer/supprimer un thème.
+voir/ajouter/éditer/supprimer un abonnementvoir le nombre d’exemplaire disponible d’un film de façon globale ou
+par boutique.
+voir la liste de ses clients, de la boutique dans laquelle il s’est abonné.
+Voir quel thème est le plus consulté de façon globale ou par boutique.
+Voir quelle boutique est la plus performante.
+Partie gérant
+Gérer ses employés.
+voir/ajouter/éditer/supprimer une boutique.
+voir/ajouter/éditer/supprimer un employé.
+afficher l’emploi du temps des employés.
+voir/ajouter/éditer/supprimer des horaires.
+Technologies souhaitées : Codeigniter, mysql, jquery/ajax, bootstrap, css3…
+Votre travail sera enregistré sur votre git perso, avec votre base de donnée
+enregistrée sauvegarder en fichier deeveadee_bdd.txt
