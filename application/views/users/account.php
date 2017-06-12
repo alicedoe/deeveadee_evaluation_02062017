@@ -22,28 +22,3 @@
     <a class="btn btn-primary" id="logout" role="button">Se deconnecter</a>
     </div>
 </div>
-<script>
-
-
-
-    function changeabo() {
-        iduser = <?php echo $user['numC']; ?>;
-        idabo= $('#aboselect').val();
-        $.ajax({
-            url: '/Userscontroller/updateabo',
-            type: 'POST',
-            data: {"idabo": idabo,"iduser": iduser},
-            success: function (data) {
-                aboclient = data['client'][0]['abonnement'];
-                $("#aboselect").empty();
-                $("#aboselect").append('<?php foreach($abonnements as $abonnement):?> <option value="<?php echo $abonnement['numAbo'];?>"><?php echo $abonnement['nomAbo']; ?></option> <?php endforeach;?>')
-                $('#aboselect option[value="'+aboclient+'"]').prop('selected', true);
-                $('.info').append('Abonnement mise à jour');
-            },
-            error: function (data) {
-                console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());
-            }
-        });
-    }
-
-</script>

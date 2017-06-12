@@ -166,6 +166,46 @@ margin-left: 2em;
     color: white;
 }
 
+/* detaildvd */
+
+.detaildvd {
+    border: 1px solid #70146a;
+    padding: 0;
+    margin-bottom: 3em;
+}
+
+.detaildvd>div:nth-child(2) {
+    text-align: center;
+}
+
+.detaildvd img {
+    height: 50vh;
+    text-align: center;
+}
+
+.detaildvd div {
+    padding: 0.5em;
+    font-size: 1.2em;
+}
+
+.detaildvd input, .detaildvd button {
+    margin-bottom : 1em;
+}
+
+#remarques>div:first-child {
+    background-color: #70146a;
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+.detaildvd>div:first-child {
+    background-color: #70146a;
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
 /* Footer */
 
 .footer {

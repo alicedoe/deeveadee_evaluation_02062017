@@ -54,6 +54,10 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['catalogue'] = 'Welcomecontroller/catalogue';
+$route['catalogue/(:num)'] = 'Welcomecontroller/detaildvd/$1';
+$route['abonnements'] = 'Welcomecontroller/abonnements';
+$route['magasins'] = 'Welcomecontroller/magasins';
+$route['contact'] = 'Welcomecontroller/contact';
 $route['catalogue/detail'] = 'Welcomecontroller/catalogue/detaildvd';
 $route['admin'] = 'Admincontroller';
 $route['admin/crud_delete'] = 'Admincontroller/crud_delete';

@@ -152,16 +152,28 @@ class MY_Model extends CI_Model {
         }
     }
 
-    public function getTopMoyenne()
+    public function getTopMoyenne($id=null)
     {
-        $this->db->order_by('moyenne', 'DESC');
-        $this->db->join('dvd', 'dvd.numD = notesmoyenne.dvdN');
-        $this->db->from($this->_table)->limit(5);
-        $query = $this->db->get();
-        if ($this->_fetch_mode == 'array') {
-            return $query->result_array();
+        if($id == null) {
+            $this->db->order_by('moyenne', 'DESC');
+            $this->db->join('dvd', 'dvd.numD = notesmoyenne.dvdN');
+            $this->db->from($this->_table)->limit(5);
+            $query = $this->db->get();
+            if ($this->_fetch_mode == 'array') {
+                return $query->result_array();
+            } else {
+                return $query->result();
+            }
         } else {
-            return $query->result();
+            $this->db->where('dvdN', $id);
+            $this->db->join('dvd', 'dvd.numD = notesmoyenne.dvdN');
+            $this->db->from($this->_table);
+            $query = $this->db->get();
+            if ($this->_fetch_mode == 'array') {
+                return $query->result_array();
+            } else {
+                return $query->result();
+            }
         }
     }
 

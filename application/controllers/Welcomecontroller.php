@@ -37,6 +37,22 @@ class Welcomecontroller extends CI_Controller {
         $this->load->template('welcome_message', $data);
 	}
 
+    public function abonnements() {
+        $this->load->template('abonnements_view');
+	}
+
+    public function contact() {
+        $this->load->template('contact_view');
+    }
+
+    public function magasins() {
+        $magasins = new Crud_model();
+        $magasins->setOptions('societe', 'numS');
+        $data['magasins'] = $magasins->get();
+
+        $this->load->template('magasins_view',$data);
+    }
+
     public function catalogue()
     {
         $dvds = new Crud_model();
@@ -84,26 +100,28 @@ class Welcomecontroller extends CI_Controller {
 
     public function detaildvd()
     {
+        $id = $this->uri->segment(2);
         $dvds = new Crud_model();
         $dvds->setOptions('dvd', 'numD');
-        $data['dvd'] = $dvds->getByJoin($_POST['id'], "dvd","titreD,auteurD,anneeD,nomG,dateAchatD,	nombreD,consultationsD,nomS");
+        $data['dvd'] = $dvds->getByJoin($id, "dvd","titreD,auteurD,anneeD,nomG,dateAchatD,nombreD,consultationsD,nomS,numD");
 
         $notes = new Crud_model();
         $notes->setOptions('notes', 'numN');
-        $total = $notes->notes($_POST['id']);
+        $total = $notes->notes($id);
         if (count($total)>0) {
-            $data['moyenne'] = (array_sum(array_map(function ($arr) {
-                    return $arr['noteN'];
-                }, $total))) / count($total);
+            $moyenne = new Crud_model();
+            $moyenne->setOptions('notesmoyenne', 'dvdN');
+            $data['moyenne'] = $moyenne->getTopMoyenne($id);
+            $data['moyenne'] = intval(round($data['moyenne'][0]['moyenne']));
             if(isset($_SESSION['numC'])) {
-            $data['anote'] = $notes->get_total(array('dvdN' => $_POST['id'], 'clientN' => $_SESSION['numC'])); }
+                $data['anote'] = $notes->get_total(array('dvdN' => $id, 'clientN' => $_SESSION['numC'])); }
             $consult = $data['dvd'][0]['consultationsD'] + 1;
-            $dvds->update($_POST['id'], null, ['consultationsD' => $consult]);
+            $dvds->update($id, null, ['consultationsD' => $consult]);
         }
 
         $remarques = new Crud_model();
         $remarques->setOptions('remarques', 'numR');
-        $listeremarques = $remarques->remarques($_POST['id']);
+        $data['listeremarques'] = $remarques->remarques($id);
 
         $this->load->library('table');
         $this->table->set_heading('Titre', 'Auteur', 'Année', 'Genre', 'Date d\'achat', 'Nombre(s) disponible(s)', 'Consultation(s)', 'Société');
@@ -112,12 +130,9 @@ class Welcomecontroller extends CI_Controller {
         );
         $this->table->set_template($template);
         $data['tab'] = $this->table->generate($data['dvd']);
+        if($this->session->userdata('isUserLoggedIn')){ $data['isUserLoggedIn'] = true; } else { $data['isUserLoggedIn'] = false; }
 
-        $this->table->set_heading('Id remarque', 'Id Dvd', 'Remarque');
-        $data['rem'] = $this->table->generate($listeremarques);
-
-        $this->output->set_content_type('application/json');
-        $this->output->set_output(json_encode($data));
+        $this->load->template('detaildvd_view',$data);
     }
 
     public function note()
@@ -165,9 +180,40 @@ class Welcomecontroller extends CI_Controller {
     }
 
     public function test() {
-        $dvdEmprunt = new CRUD_model();
-        $dvdEmprunt->setOptions('emprunt', 'numE');
-        $data['emprunts'] = $dvdEmprunt->empruntClient(10);
-        var_dump($data);
+        $_POST['id'] = 1000;
+        $dvds = new Crud_model();
+        $dvds->setOptions('dvd', 'numD');
+        $data['dvd'] = $dvds->getByJoin($_POST['id'], "dvd","titreD,auteurD,anneeD,nomG,dateAchatD,nombreD,consultationsD,nomS");
+
+        $notes = new Crud_model();
+        $notes->setOptions('notes', 'numN');
+        $total = $notes->notes($_POST['id']);
+        if (count($total)>0) {
+            $moyenne = new Crud_model();
+            $moyenne->setOptions('notesmoyenne', 'dvdN');
+            $data['moyenne'] = $moyenne->getTopMoyenne($_POST['id']);
+            if(isset($_SESSION['numC'])) {
+                $data['anote'] = $notes->get_total(array('dvdN' => $_POST['id'], 'clientN' => $_SESSION['numC'])); }
+            $consult = $data['dvd'][0]['consultationsD'] + 1;
+            $dvds->update($_POST['id'], null, ['consultationsD' => $consult]);
+        }
+
+        $remarques = new Crud_model();
+        $remarques->setOptions('remarques', 'numR');
+        $listeremarques = $remarques->remarques($_POST['id']);
+
+        $this->load->library('table');
+        $this->table->set_heading('Titre', 'Auteur', 'Année', 'Genre', 'Date d\'achat', 'Nombre(s) disponible(s)', 'Consultation(s)', 'Société');
+        $template = array(
+            'table_open'            => '<table border="0" class="col-md-12">'
+        );
+        $this->table->set_template($template);
+        $data['tab'] = $this->table->generate($data['dvd']);
+
+        $this->table->set_heading('Id remarque', 'Id Dvd', 'Remarque');
+        $data['rem'] = $this->table->generate($listeremarques);
+
+        $this->output->set_content_type('application/json');
+        $this->output->set_output(json_encode($data));
     }
 }

@@ -135,7 +135,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <nav class="navbar navbar-default">
     <div id="menu" class="container-fluid col-lg-12">
         <div class="col-lg-3">
-            <a href="#">
+            <a href="/abonnements">
                 Les abonnements
             </a>
         </div>
@@ -145,12 +145,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
         </div>
         <div class="col-lg-3">
-            <a href="#">
+            <a href="/magasins">
                 Nos magasins
             </a>
         </div>
         <div class="col-lg-3">
-            <a href="#">
+            <a href="/contact">
                 Nous contacter
             </a>
         </div>

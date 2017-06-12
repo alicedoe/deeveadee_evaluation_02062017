@@ -9,7 +9,9 @@ $( document ).ready(function() {
         dvdGenre(this.value);
     })
 
-    $('#detail, #moyenne, #note, #saisiremarque, #remarques').empty();
+
+
+    // $('#detail, #moyenne, #note, #saisiremarque, #remarques').empty();
 });
 
 function dvdGenre(id) {
@@ -73,20 +75,18 @@ function note(note,id) {
 }
 
 function addremarque(id) {
-    remarque = $('#remarquesaisi').val();
-    $.ajax({
+    console.log(id);
+    remarque = $('#commentaire').val();
+    if ( remarque != "") {
+        $.ajax({
         url: '/Welcomecontroller/remarque',
         type: 'POST',
         data: {"remarque": remarque,"dvd": id},
         success: function (data) {
-            $('#remarques, #saisiremarque').empty();
-            $(data['rem']).appendTo('#remarques');
-            $('#saisiremarque').append('<input type="text" id="remarquesaisi"  name="remarque"><button id="btnremarque" class="btn btn-primary">Envoyer</button>');
-            $('#btnremarque').click(function(){ addremarque(id)});
-            console.log(id);
+            $('#remarques').append('<div>'+remarque+'</div>');
         },
         error: function (data) {
             console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());
         }
-    });
+    }); }
 }
