@@ -28,12 +28,12 @@ class Welcomecontroller extends CI_Controller {
 	 */
 	public function index()
 	{
-        $societes = new Crud_model();
-        $societes->setOptions('societe', 'numS');
-        $data['societes'] = $societes->get();
         $dvd = new Crud_model();
         $dvd->setOptions('dvd', 'numD');
-        $data['lastDvd'] = $dvd->getJoin(6, "numD", "dvd");
+        $data['lastDvd'] = $dvd->getJoin(4, "numD", "dvd");
+        $dvd = new Crud_model();
+        $dvd->setOptions('notesmoyenne', 'dvdN');
+        $data['moyennes'] = $dvd->getTopMoyenne();
         $this->load->template('welcome_message', $data);
 	}
 
@@ -165,8 +165,9 @@ class Welcomecontroller extends CI_Controller {
     }
 
     public function test() {
-        $remarque = new Crud_model();
-        $remarque->setOptions('remarques', 'numR');
-        $remarque->insert(['dvdR' => $_POST['dvd'],'commentairesR' => $_POST['remarque']]);
+        $dvdEmprunt = new CRUD_model();
+        $dvdEmprunt->setOptions('emprunt', 'numE');
+        $data['emprunts'] = $dvdEmprunt->empruntClient(10);
+        var_dump($data);
     }
 }

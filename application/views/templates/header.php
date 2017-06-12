@@ -36,10 +36,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <div id="blocUser" class="col-lg-3">
             <?php if($this->session->userdata('isUserLoggedIn')) {
-                echo "<div class='middlehor text-center' id='btnAccount'><div>Bonjour ".$this->session->userdata('prenom')." !</div><div><a href='users/account'><button class='middlehor btn btn-primary'>Mon compte</button></a></div><button id='logout' class='middlehor btn btn-primary'>Se deconnecter</button></div>";
-            } else { ?> <div class="login middlehor">
-                <button data-toggle="modal" data-target="#popinLogin" class="btn btn-sm btn-primary connect">Se connecter</button>
-                <button data-toggle="modal" data-target="#popinCreateAccount" class="btn btn-sm btn-primary register">Créer un compte</button>
+                echo "<div class='middlehor text-center' id='btnAccount'>
+                        <div class='col-lg-12'>Bonjour ".$this->session->userdata('prenom')." !</div>
+                        <div><a href='users/account'><button class='col-lg-12 btn btn-primary'>Mon compte</button></a></div>
+                        <button id='logout' class='col-lg-12 middlehor btn btn-primary'>Se deconnecter</button>
+                      </div>";
+            } else { ?> <div class="middlehor login">
+                <button data-toggle="modal" data-target="#popinLogin" class="col-lg-12 btn btn-sm btn-primary connect">Se connecter</button>
+                <button data-toggle="modal" data-target="#popinCreateAccount" class="col-lg-12 btn btn-sm btn-primary register">Créer un compte</button>
             </div> <?php } ?>
 
         </div>
@@ -127,7 +131,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 </div>
 
-<div>
+
 <nav class="navbar navbar-default">
     <div id="menu" class="container-fluid col-lg-12">
         <div class="col-lg-3">
@@ -136,7 +140,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
         </div>
         <div class="col-lg-3">
-            <a href="#">
+            <a href="/catalogue">
                 Le catalogue
             </a>
         </div>
@@ -152,4 +156,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 </nav>
-</div>

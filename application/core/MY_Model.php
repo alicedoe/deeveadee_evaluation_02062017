@@ -152,6 +152,33 @@ class MY_Model extends CI_Model {
         }
     }
 
+    public function getTopMoyenne()
+    {
+        $this->db->order_by('moyenne', 'DESC');
+        $this->db->join('dvd', 'dvd.numD = notesmoyenne.dvdN');
+        $this->db->from($this->_table)->limit(5);
+        $query = $this->db->get();
+        if ($this->_fetch_mode == 'array') {
+            return $query->result_array();
+        } else {
+            return $query->result();
+        }
+    }
+
+    public function empruntClient($id)
+    {
+        $this->db->where('clientE', $id);
+        $this->db->join('dvd', 'dvd.numD = emprunt.dvdE');
+        $this->db->select('titreD, dateE, dureeE');
+        $this->db->from($this->_table);
+        $query = $this->db->get();
+        if ($this->_fetch_mode == 'array') {
+            return $query->result_array();
+        } else {
+            return $query->result();
+        }
+    }
+
     public function getJoin($limit = null, $order_by = null, $join = null, $fields="*", $id=null)
     {
         if ($order_by != null) {
@@ -173,6 +200,15 @@ class MY_Model extends CI_Model {
                 case "emprunt":
                     $this->db->join('dvd', 'dvd.numD = emprunt.dvdE');
                     $query = $this->db->get_where($this->_table, array('clientE'  => $id));
+                    break;
+                case "moyennes":
+                    $this->db->join('dvd', 'dvd.numD = notesmoyenne.dvdN');
+                    if ($limit != null ) {
+                        $this->db->from($this->_table)->limit($limit);
+                        $query = $this->db->get();
+                    } else {
+                        $this->db->from($this->_table);
+                        $query = $this->db->get(); }
                     break;
                 case "notes":
                     $this->db->join('dvd', 'dvd.numD = notes.dvdN');

@@ -31,12 +31,13 @@ class Userscontroller extends CI_Controller {
 
             $dvdEmprunt = new CRUD_model();
             $dvdEmprunt->setOptions('emprunt', 'numE');
-            $data['emprunts'] = $dvdEmprunt->getJoin(null, null, "emprunt", "*", $this->session->userdata('numC'));
+            $data['emprunts'] = $dvdEmprunt->empruntClient($this->session->userdata('numC'));
 
             $this->load->library('table');
             $template = array(
                 'table_open'            => '<table border="0" class="col-md-12">'
             );
+            $this->table->set_heading('Titre', 'Date d\'emprunt', 'Durée');
 
             $this->table->set_template($template);
             $data['tab'] = $this->table->generate($data['emprunts']);
@@ -145,8 +146,6 @@ class Userscontroller extends CI_Controller {
         $this->session->unset_userdata('isUserLoggedIn');
         $this->session->unset_userdata('userId');
         $this->session->sess_destroy();
-        $data = "logout";
-        $this->load->template('welcome_message', $data);
     }
 
     /*

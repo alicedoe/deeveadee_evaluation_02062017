@@ -1,39 +1,52 @@
-<div id="body">
-        <div class="page-header">
-            <h1>Nos 6 dernières nouveautées :</h1>
+<div class="container-fluid">
+    <div id="welcomeMiddle" class="row col-lg-12">
+        <div class="externbloc col-lg-7">
+        <div class="blocmiddle center-block">
+                <div>Nouveautés</div>
+            <?php for ($i=1; $i<5; $i++) {
+                                                ?>
+                                                <div class="col-lg-3 jaquette">
+                                                    <img height="200px" src="/assets/img/jaquette<?php echo $i; ?>.jpg" alt="">
+                                                </div>
+                                            <?php } ?>
+
         </div>
-        <div class="row">
-            <ul class="list-group">
-                <?php foreach ($lastDvd as $dvd) {
+        </div>
+        <div class="externbloc col-lg-4 ">
+        <div class="blocmiddle center-block">
+                <div>Top DVD</div>
+                <?php foreach ($moyennes as $dvd) {
                     ?>
-                    <li class="list-group-item col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <span class="badge"><?php echo $dvd["nombreD"]; ?></span>
-                        <?php echo $dvd["titreD"]." - ".$dvd["nomG"]." - ".$dvd["dateAchatD"]; ?>
-                    </li>
+                    <div><?php echo $dvd["titreD"]; ?></div>
                 <?php } ?>
-            </ul>
-        </div>
-        <div class="page-header">
-            <h1>Nos offres d'abonnements :</h1>
-        </div>
 
-        <div class="page-header">
-            <h1>Nos magasins :</h1>
         </div>
-        <div class="row"><?php foreach ($societes as $societe) { ?>
-                <div class="items col-xs-12 col-sm-6 col-md-6 col-lg-6 clearfix">
-                    <div class="info-block block-info clearfix">
-                        <div class="square-box pull-left">
-                            <span class="glyphicon glyphicon-home glyphicon-lg"></span>
-                        </div>
-                        <h5><?php echo $societe["nomS"]; ?></h5>
-                        <h4>Adresse : <?php echo $societe["rueS"]; ?></h4>
-                        <h4>Ville : <?php echo $societe["villeS"]; ?></h4>
-                        <p>Directeur: <?php echo $societe["directeurS"]; ?></p>
-                    </div>
+        </div>
+    </div>
+</div>
 
-                </div>
-            <?php } ?>
+<div class="container-fluid">
+    <div id="abo" class="row col-lg-12">
+        <div class="col-lg-4 center-block">
+            <div class="blocAbo">
+                <div>Formule TopCool</div>
+                <div>10€ par mois</div>
+                <div>5 DVD</div>
+            </div>
+        </div>
+        <div class="col-lg-4 center-block">
+            <div class="blocAbo">
+                <div>Formule SuperCool</div>
+                <div>20€ par mois</div>
+                <div>15 DVD</div>
+            </div>
+        </div>
+        <div class="col-lg-4 center-block">
+            <div class="blocAbo">
+                <div>Formule MegaCool</div>
+                <div>30€ par mois</div>
+                <div>DVD illimités</div>
+            </div>
         </div>
     </div>
 </div>

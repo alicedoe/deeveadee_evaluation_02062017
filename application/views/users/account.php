@@ -1,4 +1,5 @@
-<div class="container">
+<div id="accountpage" class="container">
+    <div class="row col-lg-offset-4 col-lg-4">
     <h2>Compte Utilisateur</h2>
     <h3>Bienvenue <?php echo $user['nomC']; ?>!</h3>
     <div class="account-info">
@@ -11,17 +12,19 @@
                     <option value="<?php echo $abonnement['numAbo'];?>" <?php if ($user['abonnement'] == $abonnement['numAbo']) { echo" selected='selected'";}?>"><?php echo $abonnement['nomAbo']; ?></option>
                 <?php endforeach;?>
             </select>
-            <bouton class="btn btn-primary" id="changeabo">Changer d'abonnement</bouton></p>
+            <bouton class="btn btn-primary" onclick="updateProfil(<?php echo $user['numC']; ?>)" id="changeabo">Changer d'abonnement</bouton></p>
+        <p class="info"></p>
     </div>
-    <?php if(count($tab) > 1) {echo $tab;} else { echo "pas d'historique d'emprunt";} ?>
+    <?php if($tab != 'Undefined table data') {echo $tab;} else { echo "pas d'historique d'emprunt";} ?>
 
 
     <br>
-    <a class="btn btn-primary" href="<?php echo site_url('users/logout') ?>" role="button">Se deconnecter</a>
+    <a class="btn btn-primary" id="logout" role="button">Se deconnecter</a>
+    </div>
 </div>
 <script>
 
-            $('#changeabo').click(function(){ changeabo()});
+
 
     function changeabo() {
         iduser = <?php echo $user['numC']; ?>;
@@ -35,6 +38,7 @@
                 $("#aboselect").empty();
                 $("#aboselect").append('<?php foreach($abonnements as $abonnement):?> <option value="<?php echo $abonnement['numAbo'];?>"><?php echo $abonnement['nomAbo']; ?></option> <?php endforeach;?>')
                 $('#aboselect option[value="'+aboclient+'"]').prop('selected', true);
+                $('.info').append('Abonnement mise à jour');
             },
             error: function (data) {
                 console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());

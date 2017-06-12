@@ -1,30 +1,3 @@
-/*.glyphicon-lg*/
-/*{*/
-    /*font-size:4em*/
-/*}*/
-/*.info-block*/
-/*{*/
-    /*border-right:5px solid #E6E6E6;margin-bottom:25px*/
-/*}*/
-/*.info-block .square-box*/
-/*{*/
-    /*width:100px;min-height:110px;margin-right:22px;text-align:center!important;background-color:#676767;padding:20px 0*/
-/*}*/
-/*.info-block.block-info*/
-/*{*/
-    /*border-color:#20819e*/
-/*}*/
-/*.info-block.block-info .square-box*/
-/*{*/
-    /*background-color:#20819e;color:#FFF*/
-/*}*/
-
-/*.btn-huge{*/
-    /*padding-top:20px;*/
-    /*padding-bottom:20px;*/
-    /*margin-bottom: 1em;*/
-/*}*/
-
 @font-face {
     font-family: 'Comforta';
 
@@ -62,6 +35,14 @@ body,html {
     position: absolute;
     left: -50%;
     transform: translate(50%, 50%);
+}
+
+#logo {
+    margin-top: 1.5em;
+}
+
+#middle {
+    margin-top: 2em;
 }
 
 #blocUser span {
@@ -109,9 +90,8 @@ text-decoration: none;
 /* Navbar */
 
 .navbar {
-    font-size: 2.5em;
-
-    margin-top: 1.5em;
+    font-size: 1.5em;
+    margin-top: 3em;
 }
 
 .navbar a {
@@ -122,6 +102,7 @@ text-decoration: none;
 .navbar div {
     display: inline-block;
     text-align: center;
+    padding-top: 0.2em;
 }
 
 .navbar-default {
@@ -131,4 +112,87 @@ text-decoration: none;
 
 #menu div:not(:last-child) {
     border-right: 1px solid #fc5e21;
+}
+
+/* bloc middle */
+
+.welcomeMiddle {
+    text-align: center;
+    margin : 0 2em 5em 2em;
+}
+
+.externbloc {
+margin-left: 2em;
+    margin-top: 2em;
+}
+
+.jaquette {
+    margin-top: 1em;
+}
+
+.blocmiddle {
+    border: 1px solid #c90b0b;
+    text-align: center;
+    padding: 0;
+    margin-bottom: 3em;
+}
+
+.blocmiddle div {
+    padding: 0.5em;
+    font-size: 1.5em;
+}
+
+.blocmiddle div:first-child {
+    background-color: #c90b0b;
+    color: white;
+    padding-bottom: 0.5em;
+}
+
+/* bloc abo */
+
+.blocAbo {
+   border: 1px solid #70146a;
+    text-align: center;
+    margin : 0 2em 4em 2em;
+}
+
+.blocAbo div {
+    padding: 0.5em;
+    font-size: 1.5em;
+}
+
+.blocAbo div:first-child {
+    background-color: #70146a;
+    color: white;
+}
+
+/* Footer */
+
+.footer {
+    background-color: #879528;
+}
+#reseaux {
+    padding : 1em;
+}
+
+#reseaux img {
+    padding-right : 1em;
+}
+
+/* account page*/
+
+#accountpage {
+    margin-bottom : 2em;
+}
+
+#accountpage .btn-primary {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    background-color: #879528;
+    border-color: #879528;
+}
+
+.btn-primary {
+    background-color: #879528;
+    border-color: #879528;
 }
