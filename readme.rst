@@ -9,7 +9,7 @@ bootstrap-sass.3.3.7 ( l’utilisation de plugin est proscrite).
 Enoncé :
 ********
 
-On désire réaliser une base de données pour la gestion d’une bibliothèque de DVDs.
+- On désire réaliser une base de données pour la gestion d’une bibliothèque de DVDs.
 Chaque société de location de DVD a un nom et une adresse (nom de rue et ville),
 ainsi qu’un nom de directeur. Plusieurs sociétés de location peuvent porter le même
 nom.
