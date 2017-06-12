@@ -3,11 +3,11 @@
     <h2>Compte Utilisateur</h2>
     <h3>Bienvenue <?php echo $user['nomC']; ?>!</h3>
     <div class="account-info">
-        <p><b>Nom: </b><?php echo $user['nomC']; ?></p>
-        <p><b>Prénom: </b><?php echo $user['prenomC']; ?></p>
-        <p><b>Email: </b><?php echo $user['emailC']; ?></p>
-        <p><b>Adresse: </b><?php echo $user['adresseC']; ?></p>
-        <p><b>Abonnement: </b><select id="aboselect" name="genre">
+        <p><b>Nom: </b><input id="nomC" class="form-control" type="text" value="<?php echo $user['nomC']; ?>"></p>
+        <p><b>Prénom: </b><input id="prenomC" class="form-control" type="text" value="<?php echo $user['prenomC']; ?>"></p>
+        <p><b>Email: </b><input id="emailC" class="form-control" type="text" value="<?php echo $user['emailC']; ?>"></p>
+        <p><b>Adresse: </b><input id="adresseC" class="form-control" type="text" value="<?php echo $user['adresseC']; ?>"></p>
+        <p><b>Abonnement: </b><select class="form-control" id="aboselect" name="genre">
                 <?php foreach($abonnements as $abonnement):?>
                     <option value="<?php echo $abonnement['numAbo'];?>" <?php if ($user['abonnement'] == $abonnement['numAbo']) { echo" selected='selected'";}?>"><?php echo $abonnement['nomAbo']; ?></option>
                 <?php endforeach;?>

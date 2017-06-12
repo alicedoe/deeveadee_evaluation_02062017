@@ -44,23 +44,24 @@ function registration() {
 
 function updateProfil(id) {
     console.log(id)
-    // iduser = <?php echo $user['numC']; ?>;
-    // idabo= $('#aboselect').val();
-    // $.ajax({
-    //     url: '/Userscontroller/updateabo',
-    //     type: 'POST',
-    //     data: {"idabo": idabo,"iduser": iduser},
-    //     success: function (data) {
-    //         aboclient = data['client'][0]['abonnement'];
-    //         $("#aboselect").empty();
-    //         $("#aboselect").append('<?php foreach($abonnements as $abonnement):?> <option value="<?php echo $abonnement['numAbo'];?>"><?php echo $abonnement['nomAbo']; ?></option> <?php endforeach;?>')
-    //         $('#aboselect option[value="'+aboclient+'"]').prop('selected', true);
-    //         $('.info').append('Abonnement mise à jour');
-    //     },
-    //     error: function (data) {
-    //         console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());
-    //     }
-    // });
+
+    idabo= $('#aboselect').val();
+    nomC= $('#nomC').val();
+    prenomC= $('#prenomC').val();
+    emailC= $('#emailC').val();
+    adresseC= $('#adresseC').val();
+
+    $.ajax({
+        url: '/Userscontroller/updateabo',
+        type: 'POST',
+        data: {"idabo": idabo,"iduser": id, "nomC": nomC, "prenomC": prenomC, "emailC": emailC, "adresseC": adresseC},
+        success: function (data) {
+            location.reload();
+        },
+        error: function (data) {
+            console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());
+        }
+    });
 }
 
 

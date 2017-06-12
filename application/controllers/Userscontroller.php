@@ -13,8 +13,15 @@ class Userscontroller extends CI_Controller {
     public function updateabo(){
         $clients = new CRUD_model();
         $clients->setOptions('clients', 'numC');
-        $clients->update($_POST['iduser'],null,array('abonnement' => $_POST['idabo']));
-        $data['client'] = $clients->get($_POST['iduser']);
+        $data = array(
+            'abonnement'=>$this->input->post('idabo'),
+            'nomC' => $this->input->post('nomC'),
+            'prenomC'=>$this->input->post('prenomC'),
+            'emailC' => $this->input->post('emailC'),
+            'adresseC'=>$this->input->post('adresseC')
+        );
+        $clients->update($_POST['iduser'],null,$data);
+//        $data['client'] = $clients->get($_POST['iduser']);
         $this->output->set_content_type('application/json');
         $this->output->set_output(json_encode($data));
     }
