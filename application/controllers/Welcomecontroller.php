@@ -53,25 +53,54 @@ class Welcomecontroller extends CI_Controller {
         $this->load->template('magasins_view',$data);
     }
 
-    public function catalogue()
+    public function catalogue($page=null)
     {
+        $this->load->library('pagination');
         $dvds = new Crud_model();
         $dvds->setOptions('dvd', 'numD');
-        $data['dvds'] = $dvds->getJoin(null, "numD", "dvd", "numD,titreD,auteurD,anneeD,nomG");
+        $count = $dvds->get_total();
+
+        $config['base_url'] = 'http://deeveadee.my/catalogue/page/';
+        $config['total_rows'] = $count;
+        $config['use_page_numbers'] = TRUE;
+        $config['num_links'] = '10';
+
+        $config['next_link'] = 'Page suivante';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+
+        $config['prev_link'] = 'Page précédente';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+
+        $config['cur_tag_open'] = '<li class="active"><a href="">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['per_page'] = 100;
+        $config['first_url'] = '/catalogue/page/1';
+        $config['full_tag_open'] = '<div id ="pagination" class="col-lg-12"><ul class="pagination">';
+        $config['full_tag_close'] = '</ul></div><!--pagination-->';
+        $config['num_tag_open'] = '<li class="page">';
+        $config['num_tag_close'] = '</li>';
+
+
+        if ($page==null) {
+            $data['dvds'] = $dvds->catalogue($config['per_page'],1);
+        } else {
+            $deb = $config['per_page'] * $page - $config['per_page'];
+            $data['dvds'] = $dvds->catalogue($config['per_page'],$deb);
+        }
         $genres = new Crud_model();
         $genres->setOptions('genre', 'numG');
         $data['genres'] = $genres->get();
+        $this->pagination->initialize($config);
 
-        $this->load->library('table');
-        $this->table->set_heading('Id', 'Titre', 'Auteur', 'Année', 'Genre');
-        $template = array(
-            'table_open'            => '<table border="0" class="col-md-12">'
-        );
-
-
-
-        $this->table->set_template($template);
-        $data['tab'] = $this->table->generate($data['dvds']);
+        $data['pagination'] = $this->pagination->create_links();
 
         $this->load->template('catalogue_view', $data);
     }
@@ -180,38 +209,11 @@ class Welcomecontroller extends CI_Controller {
     }
 
     public function test() {
-        $_POST['id'] = 1000;
         $dvds = new Crud_model();
         $dvds->setOptions('dvd', 'numD');
-        $data['dvd'] = $dvds->getByJoin($_POST['id'], "dvd","titreD,auteurD,anneeD,nomG,dateAchatD,nombreD,consultationsD,nomS");
-
-        $notes = new Crud_model();
-        $notes->setOptions('notes', 'numN');
-        $total = $notes->notes($_POST['id']);
-        if (count($total)>0) {
-            $moyenne = new Crud_model();
-            $moyenne->setOptions('notesmoyenne', 'dvdN');
-            $data['moyenne'] = $moyenne->getTopMoyenne($_POST['id']);
-            if(isset($_SESSION['numC'])) {
-                $data['anote'] = $notes->get_total(array('dvdN' => $_POST['id'], 'clientN' => $_SESSION['numC'])); }
-            $consult = $data['dvd'][0]['consultationsD'] + 1;
-            $dvds->update($_POST['id'], null, ['consultationsD' => $consult]);
-        }
-
-        $remarques = new Crud_model();
-        $remarques->setOptions('remarques', 'numR');
-        $listeremarques = $remarques->remarques($_POST['id']);
-
-        $this->load->library('table');
-        $this->table->set_heading('Titre', 'Auteur', 'Année', 'Genre', 'Date d\'achat', 'Nombre(s) disponible(s)', 'Consultation(s)', 'Société');
-        $template = array(
-            'table_open'            => '<table border="0" class="col-md-12">'
-        );
-        $this->table->set_template($template);
-        $data['tab'] = $this->table->generate($data['dvd']);
-
-        $this->table->set_heading('Id remarque', 'Id Dvd', 'Remarque');
-        $data['rem'] = $this->table->generate($listeremarques);
+        $cb = 50;
+        $deb = 100;
+        $data['dvds'] = $dvds->catalogue($cb,$deb);
 
         $this->output->set_content_type('application/json');
         $this->output->set_output(json_encode($data));

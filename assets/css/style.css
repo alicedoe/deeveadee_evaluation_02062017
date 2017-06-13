@@ -236,3 +236,41 @@ margin-left: 2em;
     background-color: #879528;
     border-color: #879528;
 }
+
+.btn-primary:hover {
+    background-color: #b3c442;
+    border-color: #b3c442;
+}
+
+.btn-primary:active:focus {
+    background-color: #b3c442;
+    border-color: #b3c442;
+}
+
+
+.btn-primary:active,.btn-primary:focus  {
+    background-color: #879528;
+    border-color: #879528;
+}
+
+/* catalogue page*/
+
+.bloccatag img {
+    height: 100px;
+}
+
+.bloccata {
+    border: 1px solid #70146a;
+    padding:0.5em;
+    margin:1em;
+    display: flex;
+    font-size: 0.8em;
+}
+
+.bloccata span {
+    display: block;
+}
+
+#detailhover {
+    display: none;
+}

@@ -191,6 +191,19 @@ class MY_Model extends CI_Model {
         }
     }
 
+    public function catalogue($cb,$deb)
+    {
+        $this->db->order_by("numD");
+        $this->db->join('genre', 'genre.numG = dvd.genre_NumG');
+        $this->db->from($this->_table)->limit($cb,$deb);
+        $query = $this->db->get();
+        if ($this->_fetch_mode == 'array') {
+            return $query->result_array();
+        } else {
+            return $query->result();
+        }
+    }
+
     public function getJoin($limit = null, $order_by = null, $join = null, $fields="*", $id=null)
     {
         if ($order_by != null) {
