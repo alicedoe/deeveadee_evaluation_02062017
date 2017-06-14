@@ -58,7 +58,9 @@ class Userscontroller extends CI_Controller {
             $data['view'] = "user";
             $this->load->template('users/account', $data);
         }else{
-            redirect('users');
+            $data['info'] = "logout";
+            $this->output->set_content_type('application/json');
+            $this->output->set_output(json_encode($data));
         }
     }
 
@@ -153,6 +155,9 @@ class Userscontroller extends CI_Controller {
         $this->session->unset_userdata('isUserLoggedIn');
         $this->session->unset_userdata('userId');
         $this->session->sess_destroy();
+        $data['info'] = "logout";
+        $this->output->set_content_type('application/json');
+        $this->output->set_output(json_encode($data));
     }
 
     /*

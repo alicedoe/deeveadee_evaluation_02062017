@@ -318,6 +318,7 @@ class MY_Model extends CI_Model {
 
     public function remarques($id) {
         $this->db->from($this->_table)->where('dvdR', $id);
+        $this->db->join('clients', 'clients.numC = remarques.clientR');
         $query = $this->db->get();
 
         if ($this->_fetch_mode == 'array') {

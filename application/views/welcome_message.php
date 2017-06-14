@@ -3,10 +3,10 @@
         <div class="externbloc col-lg-7">
         <div class="blocmiddle center-block">
                 <div>Nouveautés</div>
-            <?php for ($i=1; $i<5; $i++) {
+            <?php  for ($i=0; $i<4; $i++) {
                                                 ?>
                                                 <div class="col-lg-3 jaquette">
-                                                    <img height="200px" src="/assets/img/jaquette<?php echo $i; ?>.jpg" alt="">
+                                                    <a href="/catalogue/<?php echo $lastDvd[$i]['numD']; ?>"><img height="200px" src="/assets/img/jaquette<?php echo $i; ?>.jpg" alt=""></a>
                                                 </div>
                                             <?php } ?>
 
@@ -17,7 +17,7 @@
                 <div>Top DVD</div>
                 <?php foreach ($moyennes as $dvd) {
                     ?>
-                    <div><?php echo $dvd["titreD"]; ?></div>
+                    <div><a href="/catalogue/<?php echo $dvd['numD']; ?>"><?php echo $dvd["titreD"]; ?></a></div>
                 <?php } ?>
 
         </div>

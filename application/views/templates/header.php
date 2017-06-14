@@ -13,6 +13,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap.css"); ?>" />
 <link rel = "stylesheet" type = "text/css" href="<?php echo base_url("assets/css/style.css"); ?>" />
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.9";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 
 <div id="header" class="container-fluid">
     <div id="header" class="row col-lg-12">
@@ -38,7 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php if($this->session->userdata('isUserLoggedIn')) {
                 echo "<div class='middlehor text-center' id='btnAccount'>
                         <div class='col-lg-12'>Bonjour ".$this->session->userdata('prenom')." !</div>
-                        <div><a href='users/account'><button class='col-lg-12 btn btn-primary'>Mon compte</button></a></div>
+                        <div><a href='/users/account'><button class='col-lg-12 btn btn-primary'>Mon compte</button></a></div>
                         <button id='logout' class='col-lg-12 middlehor btn btn-primary'>Se deconnecter</button>
                       </div>";
             } else { ?> <div class="middlehor login">
@@ -135,8 +143,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <nav class="navbar navbar-default">
     <div id="menu" class="container-fluid col-lg-12">
         <div class="col-lg-3">
-            <a href="/abonnements">
-                Les abonnements
+            <a href="/">
+                Accueil
             </a>
         </div>
         <div class="col-lg-3">

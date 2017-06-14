@@ -35,7 +35,6 @@ function detailDvd(id) {
         type: 'POST',
         data: {"id": id},
         success: function (data) {
-            console.log(data);
             $('#detail, #note, #saisiremarque, #remarques').empty();
             $('#moyenne').empty().text(data['moyenne']);
             $(data['tab']).appendTo('#detail');
@@ -74,17 +73,17 @@ function note(note,id) {
     });
 }
 
-function addremarque(id) {
-    console.log(id);
+function addremarque(id,client) {
     remarque = $('#commentaire').val();
     if ( remarque != "") {
         $.ajax({
         url: '/Welcomecontroller/remarque',
         type: 'POST',
-        data: {"remarque": remarque,"dvd": id},
+        data: {"remarque": remarque,"dvd": id, "client": client},
         success: function (data) {
             $('#commentaire').val('');
-            $('#remarques').append('<div>'+remarque+'</div>');
+            $('#noremarque').remove();
+            $('#remarques div').last().after('<div class="col-lg-12">'+data['prenom']+' : '+remarque+'</div>');
         },
         error: function (data) {
             console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());

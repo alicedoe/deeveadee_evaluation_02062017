@@ -43,8 +43,6 @@ function registration() {
 }
 
 function updateProfil(id) {
-    console.log(id)
-
     idabo= $('#aboselect').val();
     nomC= $('#nomC').val();
     prenomC= $('#prenomC').val();
@@ -72,11 +70,7 @@ function login() {
         data: {"emailC": $('.loginForm input[name=login_username]').val(),"motdepasseC": $('.loginForm input[name=login_password]').val()},
         success: function (data) {
             if(data["isUserLoggedIn"]) {
-                $('#blocUser').empty().append("<div class='middlehor text-center' id='btnAccount'><div class='col-lg-12'>Bonjour "+data["prenom"]+" !</div><div><a href='users/account'><button class='col-lg-12 btn btn-primary'>Mon compte</button></a></div><button id='logout' class='col-lg-12 middlehor btn btn-primary'>Se deconnecter</button></div>");
-                $('#logout').click(function() {
-                        logout();
-                    });
-                $('#popinLogin').modal('hide')
+                location.reload();
             }
             else {
                 $('.error').append(data['error_msg'])
@@ -93,9 +87,7 @@ function logout() {
     $.ajax({
         url: '/Userscontroller/logout',
         success: function (data) {
-            $('#account').empty().append("<input type='text' name='email' placeholder='Email'><br><input type='text' name='motdepasse' placeholder='Mot de passe'><br><button id='login' onclick='login()' class='btn btn-primary'>Se connecter</button><br><a class='btn btn-primary' href='users/registration' role='button'>Créer un compte</a>");
-
-            location.assign("http://deeveadee.my");
+            location.reload();
             },
         error: function (data) {
             console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());

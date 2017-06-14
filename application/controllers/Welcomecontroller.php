@@ -30,7 +30,7 @@ class Welcomecontroller extends CI_Controller {
 	{
         $dvd = new Crud_model();
         $dvd->setOptions('dvd', 'numD');
-        $data['lastDvd'] = $dvd->getJoin(4, "numD", "dvd");
+        $data['lastDvd'] = $dvd->getJoin(5, "numD", "dvd");
         $dvd = new Crud_model();
         $dvd->setOptions('notesmoyenne', 'dvdN');
         $data['moyennes'] = $dvd->getTopMoyenne();
@@ -148,6 +148,10 @@ class Welcomecontroller extends CI_Controller {
             $dvds->update($id, null, ['consultationsD' => $consult]);
         }
 
+        $data['totalnotes'] = $notes->get_total(array('dvdN' => $id));
+        $data['numc'] = $this->session->userdata('numC');
+        $data['prenom'] = $this->session->userdata('prenom');
+
         $remarques = new Crud_model();
         $remarques->setOptions('remarques', 'numR');
         $data['listeremarques'] = $remarques->remarques($id);
@@ -188,12 +192,9 @@ class Welcomecontroller extends CI_Controller {
         $data['remarque'] = $_POST['remarque'];
         $remarque = new Crud_model();
         $remarque->setOptions('remarques', 'numR');
-        $remarque->insert(['dvdR' => $_POST['dvd'],'commentairesR' => $_POST['remarque']]);
+        $remarque->insert(['dvdR' => $_POST['dvd'],'commentairesR' => $_POST['remarque'],'clientR' => $_POST['client']]);
 
-        $listeremarques = $remarque->remarques($_POST['dvd']);
-
-        $this->load->library('table');
-        $data['rem'] = $this->table->generate($listeremarques);
+        $data['prenom'] = $this->session->userdata('prenom');
 
         $this->output->set_content_type('application/json');
         $this->output->set_output(json_encode($data));
