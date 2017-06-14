@@ -18,8 +18,8 @@
                         echo "<i class='glyphicon glyphicon-star'></i>";
 } } else { for ($i=0; $i < 5; $i++) {
                             echo "<i class='glyphicon glyphicon-star-empty'></i>";
-                        } } ?></div>
-                    <div><?php if (isset($anote)) { echo "Vous avez déjà noté ce DVD ou vous n'êtes pas connecté"; } else { echo "truc pour voter"; }?></div>
+                        } ?> <?php } ?></div>
+                    <div><?php if (isset($anote)) { echo "Vous avez déjà noté ce DVD"; } else { echo "truc pour voter"; }?></div>
                 </div>
                 <div class="col-lg-12" id="remarques">
                     <div>Commentaires sur le film :</div>
@@ -28,10 +28,11 @@
                     } ?>
 
                 </div>
-                <div><?php if ($isUserLoggedIn) {
-                        echo '<input id="commentaire" class="form-control" placeholder="Votre commentaire" type="text">';
-                        echo '<button class="btn btn-primary col-lg-offset-3 col-lg-6" onclick="addremarque('.$dvd[0]['numD'].')"  id="submitcommentaire">Envoyer</button>';
-                    } else { echo "Veuillez vous connectez pour laisser un commentaire"; }?></div>
+                <?php if ($isUserLoggedIn) {
+                        echo '<div><input id="commentaire" class="form-control" placeholder="Votre commentaire" type="text">';
+                        echo '<button class="btn btn-primary col-lg-offset-3 col-lg-6" onclick="addremarque('.$dvd[0]['numD'].')"  id="submitcommentaire">Envoyer</button></div>';
+                    } else { ?> <div>Veuillez vous connectez pour laisser un commentaire </div> <?php }?>
             </div>
+
     </div>
 </div>

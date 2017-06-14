@@ -83,6 +83,7 @@ function addremarque(id) {
         type: 'POST',
         data: {"remarque": remarque,"dvd": id},
         success: function (data) {
+            $('#commentaire').val('');
             $('#remarques').append('<div>'+remarque+'</div>');
         },
         error: function (data) {

@@ -176,6 +176,7 @@ class Welcomecontroller extends CI_Controller {
             $data['moyenne'] = (array_sum(array_map(function ($arr) {
                     return $arr['noteN'];
                 }, $total))) / count($total);
+            $data['total'] = $total;
         $this->output->set_content_type('application/json');
         $this->output->set_output(json_encode($data));
     }
