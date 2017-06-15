@@ -53,9 +53,8 @@ $route['default_controller'] = 'Welcomecontroller';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['catalogue/page/(:num)'] = 'Welcomecontroller/catalogue/$1';
+$route['catalogue/genre/(:any)/(:num)'] = 'Welcomecontroller/genre/$1/$2';
 $route['catalogue/(:num)'] = 'Welcomecontroller/detaildvd/$1';
-$route['abonnements'] = 'Welcomecontroller/abonnements';
 $route['magasins'] = 'Welcomecontroller/magasins';
 $route['contact'] = 'Welcomecontroller/contact';
 $route['catalogue/detail'] = 'Welcomecontroller/catalogue/detaildvd';

@@ -191,12 +191,20 @@ class MY_Model extends CI_Model {
         }
     }
 
-    public function catalogue($cb,$deb)
+    public function catalogue($cb,$deb,$idgenre)
     {
+        $this->db->from($this->_table);
         $this->db->order_by("numD");
         $this->db->join('genre', 'genre.numG = dvd.genre_NumG');
-        $this->db->from($this->_table)->limit($cb,$deb);
-        $query = $this->db->get();
+        $this->db->limit($cb,$deb);
+
+       if ( $idgenre == "all" ) {
+            $query = $this->db->get();
+        } else {
+           $this->db->where('genre_numG', $idgenre);
+           $query = $this->db->get();
+       }
+
         if ($this->_fetch_mode == 'array') {
             return $query->result_array();
         } else {

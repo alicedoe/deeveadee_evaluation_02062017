@@ -53,14 +53,85 @@ class Welcomecontroller extends CI_Controller {
         $this->load->template('magasins_view',$data);
     }
 
-    public function catalogue($page=null)
+//    public function catalogue($page=null,$idgenre=null)
+//    {
+//        $this->load->library('pagination');
+//        $dvds = new Crud_model();
+//        $dvds->setOptions('dvd', 'numD');
+//        if ($idgenre == null ) {
+//            $count = $dvds->get_total();
+//        } else {
+//            $count = $dvds->get_total(array('genre_numG'=>$idgenre));
+//        }
+//
+//
+//        $config['base_url'] = 'http://deeveadee.my/catalogue/page/';
+//        $config['total_rows'] = $count;
+//        $config['use_page_numbers'] = TRUE;
+//        $config['num_links'] = '10';
+//
+//        $config['next_link'] = 'Page suivante';
+//        $config['next_tag_open'] = '<li>';
+//        $config['next_tag_close'] = '</li>';
+//
+//        $config['prev_link'] = 'Page précédente';
+//        $config['prev_tag_open'] = '<li>';
+//        $config['prev_tag_close'] = '</li>';
+//
+//        $config['first_tag_open'] = '<li>';
+//        $config['first_tag_close'] = '</li>';
+//
+//        $config['last_tag_open'] = '<li>';
+//        $config['last_tag_close'] = '</li>';
+//
+//        $config['cur_tag_open'] = '<li class="active"><a href="">';
+//        $config['cur_tag_close'] = '</a></li>';
+//        $config['per_page'] = 100;
+//        $config['first_url'] = '/catalogue/page/1';
+//        $config['full_tag_open'] = '<div id ="pagination" class="col-lg-12"><ul class="pagination">';
+//        $config['full_tag_close'] = '</ul></div><!--pagination-->';
+//        $config['num_tag_open'] = '<li class="page">';
+//        $config['num_tag_close'] = '</li>';
+//
+//
+//        if ($page==null) {
+//            if ($idgenre == null) {
+//                $data['dvds'] = $dvds->catalogue($config['per_page'],1);
+//            } else {
+//                $data['dvds'] = $dvds->catalogue($config['per_page'],1,$idgenre);
+//            }
+//
+//        } else {
+//            $deb = $config['per_page'] * $page - $config['per_page'];
+//            if ($idgenre == null) {
+//                $data['dvds'] = $dvds->catalogue($config['per_page'],$deb);
+//            } else {
+//                $data['dvds'] = $dvds->catalogue($config['per_page'],$deb,$idgenre);
+//            }
+//
+//        }
+//        $genres = new Crud_model();
+//        $genres->setOptions('genre', 'numG');
+//        $data['genres'] = $genres->get();
+//        $this->pagination->initialize($config);
+//
+//        $data['pagination'] = $this->pagination->create_links();
+//
+//        $this->load->template('catalogue_view', $data);
+//    }
+
+    public function genre($idgenre,$page=null)
     {
         $this->load->library('pagination');
         $dvds = new Crud_model();
         $dvds->setOptions('dvd', 'numD');
-        $count = $dvds->get_total();
+        if ($idgenre == "all") {
+            $count = $dvds->get_total();
+        } else {
+            $count = $dvds->get_total(array('genre_numG'=>$idgenre));
+        }
 
-        $config['base_url'] = 'http://deeveadee.my/catalogue/page/';
+        $config['base_url'] = 'http://deeveadee.my/catalogue/genre/'.$idgenre.'/';
         $config['total_rows'] = $count;
         $config['use_page_numbers'] = TRUE;
         $config['num_links'] = '10';
@@ -82,49 +153,31 @@ class Welcomecontroller extends CI_Controller {
         $config['cur_tag_open'] = '<li class="active"><a href="">';
         $config['cur_tag_close'] = '</a></li>';
         $config['per_page'] = 100;
-        $config['first_url'] = '/catalogue/page/1';
+        $config['first_url'] = '/catalogue/genre/'.$idgenre.'/1';
         $config['full_tag_open'] = '<div id ="pagination" class="col-lg-12"><ul class="pagination">';
-        $config['full_tag_close'] = '</ul></div><!--pagination-->';
+        $config['full_tag_close'] = '</ul></div>';
         $config['num_tag_open'] = '<li class="page">';
         $config['num_tag_close'] = '</li>';
 
+        $deb = $config['per_page'] * $page - $config['per_page'];
 
-        if ($page==null) {
-            $data['dvds'] = $dvds->catalogue($config['per_page'],1);
+        if ($idgenre != "all") {
+            $data['dvds'] = $dvds->catalogue($config['per_page'],0,$idgenre);
         } else {
-            $deb = $config['per_page'] * $page - $config['per_page'];
-            $data['dvds'] = $dvds->catalogue($config['per_page'],$deb);
+            $data['dvds'] = $dvds->catalogue($config['per_page'],$deb,"all");
         }
+
         $genres = new Crud_model();
         $genres->setOptions('genre', 'numG');
         $data['genres'] = $genres->get();
         $this->pagination->initialize($config);
 
         $data['pagination'] = $this->pagination->create_links();
+        $data['idgenre'] =  $idgenre;
+        $data['deb'] =  $deb;
 
         $this->load->template('catalogue_view', $data);
-    }
-
-    public function dvdGenre()
-    {
-        $dvds = new Crud_model();
-        $dvds->setOptions('dvd', 'numD');
-        $idgenre = $_POST['id'];
-        if ($idgenre == "*") {
-            $data = $dvds->get();
-        } else { $data = $dvds->get(array('genre_numG'=>$idgenre)); }
-
-        $this->load->library('table');
-        $this->table->set_heading('Id', 'Titre', 'Auteur', 'Année', 'Genre');
-        $template = array(
-            'table_open'            => '<table border="0" class="col-md-12">'
-        );
-
-        $this->table->set_template($template);
-        $data['tab'] = $this->table->generate($data);
-
-        $this->output->set_content_type('application/json');
-        $this->output->set_output(json_encode($data));
+//        $this->output->enable_profiler(TRUE);
     }
 
     public function detaildvd()

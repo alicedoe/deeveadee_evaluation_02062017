@@ -278,3 +278,23 @@ margin-left: 2em;
 #detailhover {
     display: none;
 }
+
+.genre .btngenre {
+    background-color: #70146a;
+    color: #fff;
+    margin: 0.5em;
+    width: 100%;
+    height: 2.4em;
+}
+
+.redborder {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border : 2px solid #70146a;
+    background-color: #fff;
+    color: #70146a;
+    margin: 0.5em;
+    width: 100%;
+    height: 2.4em;
+}

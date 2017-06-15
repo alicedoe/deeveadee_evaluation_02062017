@@ -5,29 +5,7 @@ $( document ).ready(function() {
         });
     });
 
-    $('#genre').on('change', function() {
-        dvdGenre(this.value);
-    })
-
-
-
-    // $('#detail, #moyenne, #note, #saisiremarque, #remarques').empty();
 });
-
-function dvdGenre(id) {
-    $.ajax({
-        url: '/Welcomecontroller/dvdGenre',
-        type: 'POST',
-        data: {"id": id},
-        success: function (data) {
-            $('#detail, #moyenne, #note').empty();
-            $('#catalogue').empty().append(data["tab"]);
-        },
-        error: function (data) {
-            console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());
-        }
-    });
-}
 
 function detailDvd(id) {
     $.ajax({

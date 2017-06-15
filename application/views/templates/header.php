@@ -148,7 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
         </div>
         <div class="col-lg-3">
-            <a href="/catalogue/page/1">
+            <a href="/catalogue/genre/all/1">
                 Le catalogue
             </a>
         </div>
