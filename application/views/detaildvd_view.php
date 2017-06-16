@@ -19,7 +19,7 @@
                             $etoilesvides = 5 - $moyenne;
                             for ($i=0; $i < $moyenne; $i++) {
                                 echo "<i class='glyphicon glyphicon-star'></i>";
-                                if ($moyenne === 5) {
+                                if ($moyenne === 5 && $i == 4) {
                                     echo " : ".$totalnotes." vote(s)";
                                 }
                             }

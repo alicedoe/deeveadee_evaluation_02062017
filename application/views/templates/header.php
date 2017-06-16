@@ -20,7 +20,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         js = d.createElement(s); js.id = id;
         js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.9";
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+    }(document, 'script', 'facebook-jssdk'));
+    var baseurl = "<?php print base_url(); ?>";
+</script>
 
 <div id="header" class="container-fluid">
     <div id="header" class="row col-lg-12">

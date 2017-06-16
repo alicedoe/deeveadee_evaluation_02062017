@@ -48,11 +48,12 @@ function updateProfil(id) {
     prenomC= $('#prenomC').val();
     emailC= $('#emailC').val();
     adresseC= $('#adresseC').val();
+    motdepasseC = $('#motdepasseC').val();
 
     $.ajax({
         url: '/Userscontroller/updateabo',
         type: 'POST',
-        data: {"idabo": idabo,"iduser": id, "nomC": nomC, "prenomC": prenomC, "emailC": emailC, "adresseC": adresseC},
+        data: {"idabo": idabo,"iduser": id, "nomC": nomC, "prenomC": prenomC, "emailC": emailC, "motdepasseC": motdepasseC, "adresseC": adresseC},
         success: function (data) {
             location.reload();
         },
@@ -87,7 +88,8 @@ function logout() {
     $.ajax({
         url: '/Userscontroller/logout',
         success: function (data) {
-            location.reload();
+            console.log(data);
+            window.location.href = baseurl;
             },
         error: function (data) {
             console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());

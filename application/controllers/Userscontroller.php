@@ -18,10 +18,10 @@ class Userscontroller extends CI_Controller {
             'nomC' => $this->input->post('nomC'),
             'prenomC'=>$this->input->post('prenomC'),
             'emailC' => $this->input->post('emailC'),
-            'adresseC'=>$this->input->post('adresseC')
+            'adresseC'=>$this->input->post('adresseC'),
+            'motdepasseC'=>$this->input->post('motdepasseC')
         );
         $clients->update($_POST['iduser'],null,$data);
-//        $data['client'] = $clients->get($_POST['iduser']);
         $this->output->set_content_type('application/json');
         $this->output->set_output(json_encode($data));
     }
@@ -30,6 +30,9 @@ class Userscontroller extends CI_Controller {
      * User account information
      */
     public function account(){
+        if($this->uri->total_segments() === 0){
+            redirect('/','refresh');
+        }
         $data = array();
         if($this->session->userdata('isUserLoggedIn')){
             $client = new CRUD_model();
@@ -55,8 +58,8 @@ class Userscontroller extends CI_Controller {
             $abonnements->setOptions('abonnement', 'numAbo');
             $data['abonnements'] = $abonnements->get();
             //load the view
-            $data['view'] = "user";
             $this->load->template('users/account', $data);
+//            $this->output->enable_profiler(TRUE);
         }else{
             $data['info'] = "logout";
             $this->output->set_content_type('application/json');
@@ -156,8 +159,6 @@ class Userscontroller extends CI_Controller {
         $this->session->unset_userdata('userId');
         $this->session->sess_destroy();
         $data['info'] = "logout";
-        $this->output->set_content_type('application/json');
-        $this->output->set_output(json_encode($data));
     }
 
     /*
