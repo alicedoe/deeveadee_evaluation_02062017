@@ -30,7 +30,7 @@
                         } else { for ($i=0; $i < 5; $i++) {
                             echo "<i class='glyphicon glyphicon-star-empty'></i>";
                         } echo " : 0 vote"; } ?></div>
-                    <div><?php if (isset($anote)) { echo "Vous avez déjà noté ce DVD"; } elseif (!$isUserLoggedIn) { echo "Vous devez être connecté pour noter";} else { ?>
+                    <div><?php if ( $anote > 0) { echo "Vous avez déjà noté ce DVD"; } elseif (!$isUserLoggedIn) { echo "Vous devez être connecté pour noter";} else { ?>
 Votre vote <ul class="pagination">
 
                                 <li onclick="note(1,<?php echo $dvd[0]['numD'] ?>)" role="button"><a>1</a></li>

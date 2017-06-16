@@ -41,9 +41,7 @@ function note(note,id) {
         type: 'POST',
         data: {"note": note,"dvd": id},
         success: function (data) {
-            console.log(data);
-            $('#note').empty();
-            $('#moyenne').empty().text(data['moyenne']);
+            location.reload();
         },
         error: function (data) {
             console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());
