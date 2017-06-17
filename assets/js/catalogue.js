@@ -66,3 +66,23 @@ function addremarque(id,client) {
         }
     }); }
 }
+
+function emprunt(id,client) {
+    duree = $('#empruntduree').val();
+    if ( duree != "" && duree > 0 && duree < 60) {
+        $.ajax({
+            url: '/Welcomecontroller/emprunt',
+            type: 'POST',
+            data: {"duree": duree,"dvd": id, "client": client},
+            success: function (data) {
+                $('#emprunt').modal('hide')
+                $('#reste').empty().html("Exemplaire(s) restant(s) : "+data['reste'])
+            },
+            error: function (data) {
+                console.log("erreuuuuuuuuuuuuuuuuur" + data.toString());
+            }
+        });
+    } else {
+        $('#dureefield .error').html("la durée d'emprunt doit être comprise entre 1 & 60 jours")
+    }
+}

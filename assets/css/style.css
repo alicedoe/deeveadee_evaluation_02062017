@@ -78,7 +78,7 @@ text-decoration: none;
     transform: translateX(-50%);
 }
 
-#popinCreateAccount {
+#popinCreateAccount, #emprunt {
     display: none;
     margin-top: 25vh;
     width: 70vh;
@@ -210,7 +210,15 @@ margin-left: 2em;
     width: 100%;
 }
 
-/* Footer */
+#dureefield .error {
+    color : red;
+}
+
+.detaildvd .pagination {
+    margin : 0;
+}
+
+    /* Footer */
 
 .footer {
     background-color: #879528;

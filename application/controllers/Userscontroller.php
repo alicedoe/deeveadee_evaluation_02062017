@@ -21,7 +21,7 @@ class Userscontroller extends CI_Controller {
             'adresseC'=>$this->input->post('adresseC'),
             'motdepasseC'=>$this->input->post('motdepasseC')
         );
-        $clients->update($_POST['iduser'],null,$data);
+        $clients->update($this->input->post('iduser'),null,$data);
         $this->output->set_content_type('application/json');
         $this->output->set_output(json_encode($data));
     }
@@ -47,7 +47,7 @@ class Userscontroller extends CI_Controller {
             $template = array(
                 'table_open'            => '<table border="0" class="col-md-12">'
             );
-            $this->table->set_heading('Titre', 'Date d\'emprunt', 'Durée');
+            $this->table->set_heading('Titre', 'Date d\'emprunt', 'Durée', 'Rendu');
 
             $this->table->set_template($template);
             $data['tab'] = $this->table->generate($data['emprunts']);

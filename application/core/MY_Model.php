@@ -181,7 +181,7 @@ class MY_Model extends CI_Model {
     {
         $this->db->where('clientE', $id);
         $this->db->join('dvd', 'dvd.numD = emprunt.dvdE');
-        $this->db->select('titreD, dateE, dureeE');
+        $this->db->select('titreD, dateE, dureeE, retourE');
         $this->db->from($this->_table);
         $query = $this->db->get();
         if ($this->_fetch_mode == 'array') {

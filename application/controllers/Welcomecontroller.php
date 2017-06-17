@@ -53,73 +53,6 @@ class Welcomecontroller extends CI_Controller {
         $this->load->template('magasins_view',$data);
     }
 
-//    public function catalogue($page=null,$idgenre=null)
-//    {
-//        $this->load->library('pagination');
-//        $dvds = new Crud_model();
-//        $dvds->setOptions('dvd', 'numD');
-//        if ($idgenre == null ) {
-//            $count = $dvds->get_total();
-//        } else {
-//            $count = $dvds->get_total(array('genre_numG'=>$idgenre));
-//        }
-//
-//
-//        $config['base_url'] = 'http://deeveadee.my/catalogue/page/';
-//        $config['total_rows'] = $count;
-//        $config['use_page_numbers'] = TRUE;
-//        $config['num_links'] = '10';
-//
-//        $config['next_link'] = 'Page suivante';
-//        $config['next_tag_open'] = '<li>';
-//        $config['next_tag_close'] = '</li>';
-//
-//        $config['prev_link'] = 'Page précédente';
-//        $config['prev_tag_open'] = '<li>';
-//        $config['prev_tag_close'] = '</li>';
-//
-//        $config['first_tag_open'] = '<li>';
-//        $config['first_tag_close'] = '</li>';
-//
-//        $config['last_tag_open'] = '<li>';
-//        $config['last_tag_close'] = '</li>';
-//
-//        $config['cur_tag_open'] = '<li class="active"><a href="">';
-//        $config['cur_tag_close'] = '</a></li>';
-//        $config['per_page'] = 100;
-//        $config['first_url'] = '/catalogue/page/1';
-//        $config['full_tag_open'] = '<div id ="pagination" class="col-lg-12"><ul class="pagination">';
-//        $config['full_tag_close'] = '</ul></div><!--pagination-->';
-//        $config['num_tag_open'] = '<li class="page">';
-//        $config['num_tag_close'] = '</li>';
-//
-//
-//        if ($page==null) {
-//            if ($idgenre == null) {
-//                $data['dvds'] = $dvds->catalogue($config['per_page'],1);
-//            } else {
-//                $data['dvds'] = $dvds->catalogue($config['per_page'],1,$idgenre);
-//            }
-//
-//        } else {
-//            $deb = $config['per_page'] * $page - $config['per_page'];
-//            if ($idgenre == null) {
-//                $data['dvds'] = $dvds->catalogue($config['per_page'],$deb);
-//            } else {
-//                $data['dvds'] = $dvds->catalogue($config['per_page'],$deb,$idgenre);
-//            }
-//
-//        }
-//        $genres = new Crud_model();
-//        $genres->setOptions('genre', 'numG');
-//        $data['genres'] = $genres->get();
-//        $this->pagination->initialize($config);
-//
-//        $data['pagination'] = $this->pagination->create_links();
-//
-//        $this->load->template('catalogue_view', $data);
-//    }
-
     public function genre($idgenre,$page=null)
     {
         $this->load->library('pagination');
@@ -221,15 +154,37 @@ class Welcomecontroller extends CI_Controller {
         $this->load->template('detaildvd_view',$data);
     }
 
+    public function emprunt()
+    {
+        $dvd = new Crud_model();
+        $dvd->setOptions('dvd','numD');
+        $dispo = $dvd->get(1);
+        if ( $dispo[0]['nombreD'] > 0) {
+            $emprunt = new Crud_model();
+            $emprunt->setOptions('emprunt','numE');
+            $emprunt->insert(['dvdE' => $this->input->post('dvd'),'dureeE' => $this->input->post('duree'),'clientE' => $this->input->post('client'), 'retourE' => "NON", 'dateE' => date('Y-m-d')]);
+            $reste = $dispo[0]['nombreD'] - 1;
+            $id = $this->input->post('dvd');
+            $dvd->update($id, null, ['nombreD' => $reste]);
+            $data['info'] = "dvd reservé ok";
+            $data['reste'] = $reste;
+        } else {
+            $data['error'] = "plus de dvd en stock";
+        }
+
+        $this->output->set_content_type('application/json');
+        $this->output->set_output(json_encode($data));
+    }
+
     public function note()
     {
         $notes = new Crud_model();
         $notes->setOptions('notes', 'numN');
-        $data['n'] = $_POST['note'];
-        $data['i'] = $_POST['dvd'];
-        $data['c'] = $_SESSION['numC'];
-        $notes->insert(['dvdN' => $_POST['dvd'],'noteN' => $_POST['note'],'clientN' => $_SESSION['numC']]);
-        $total = $notes->notes($_POST['dvd']);
+        $data['n'] = $this->input->post('note');
+        $data['i'] = $this->input->post('dvd');
+        $data['c'] = $this->input->post('numC');
+        $notes->insert(['dvdN' => $this->input->post('dvd'),'noteN' => $this->input->post('note'),'clientN' => $_SESSION['numC']]);
+        $total = $notes->notes($this->input->post('dvd'));
             $data['moyenne'] = (array_sum(array_map(function ($arr) {
                     return $arr['noteN'];
                 }, $total))) / count($total);
@@ -241,11 +196,11 @@ class Welcomecontroller extends CI_Controller {
     public function remarque()
     {
         $data['test'] = "test";
-        $data['dvd'] = $_POST['dvd'];
-        $data['remarque'] = $_POST['remarque'];
+        $data['dvd'] = $this->input->post('dvd');
+        $data['remarque'] = $this->input->post('remarque');
         $remarque = new Crud_model();
         $remarque->setOptions('remarques', 'numR');
-        $remarque->insert(['dvdR' => $_POST['dvd'],'commentairesR' => $_POST['remarque'],'clientR' => $_POST['client']]);
+        $remarque->insert(['dvdR' => $this->input->post('dvd'),'commentairesR' => $this->input->post('remarque'),'clientR' => $this->input->post('client')]);
 
         $data['prenom'] = $this->session->userdata('prenom');
 
@@ -264,13 +219,6 @@ class Welcomecontroller extends CI_Controller {
     }
 
     public function test() {
-        $dvds = new Crud_model();
-        $dvds->setOptions('dvd', 'numD');
-        $cb = 50;
-        $deb = 100;
-        $data['dvds'] = $dvds->catalogue($cb,$deb);
 
-        $this->output->set_content_type('application/json');
-        $this->output->set_output(json_encode($data));
     }
 }
