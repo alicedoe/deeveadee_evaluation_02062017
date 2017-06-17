@@ -306,3 +306,12 @@ margin-left: 2em;
     width: 100%;
     height: 2.4em;
 }
+
+/* magasins */
+
+#map {
+    width: 50%;
+    height: 400px;
+    background-color: grey;
+    margin-bottom: 2em;
+}
